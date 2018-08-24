@@ -31,9 +31,9 @@ MyPageload.prototype.init = function(options){
         domDown : {                                                          // 下方DOM
             domClass   : 'dropload-down',
         //    domRefresh : '<div class="droploadEle dropload-refresh hide">↑上拉加载更多</div>',
-            domLoad    : '<div class="droploadEle dropload-load hide"><span class="loading"></span>加载中...</div>',
-            domNoData  : '<div class="droploadEle dropload-noData hide">没有更多数据了</div>',
-            emptyData  : '<div class="droploadEle dropload-noData hide">数据为空</div>'//第一页加载就没有数据
+            domLoad    : '<div class="droploadEle dropload-load hide"><span class="loading"></span>拼命加载中...</div>',
+            domNoData  : '<div class="droploadEle dropload-noData hide">.我是有底线的额.亲</div>',
+            emptyData  : '<div class="droploadEle dropload-noData hide">.数据为空.</div>'//第一页加载就没有数据
         },
         autoLoad : true,                                                     // 自动加载
         targetWarp:'',

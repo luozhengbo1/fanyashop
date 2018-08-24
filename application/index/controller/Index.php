@@ -82,7 +82,11 @@ class Index extends Mustlogin
         }
         #不同等级得到不同积分。
     }
-
+    public function noPage()
+    {
+        $this->assign('titleName', "访问错误 ");
+        return $this->view->fetch('noPage');
+    }
 }
 
 
