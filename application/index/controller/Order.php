@@ -76,7 +76,6 @@ Class Order extends Mustlogin
             foreach ($orderList as $k => $v) {
 
                 $orderList[$k]['goods_detail'] = json_decode($v['goods_detail'], true);
-                $orderList[$k]['lottery_detail'] = json_decode($v['lottery_detail'], true);
             }
             $orderList = array_values($this->array_group_by($orderList, 'order_id'));
             return ajax_return($orderList, 'ok', '200');
@@ -1087,7 +1086,6 @@ Class Order extends Mustlogin
         $this->view->assign('orderDetail', $orderGoods);
         $this->view->assign('userInfo', $this->userInfo);
         //dump($this->userInfo);
-        //dump($orderGoods);
         return $this->view->fetch('orderTrack');
     }
 
