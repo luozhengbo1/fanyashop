@@ -45,13 +45,7 @@
                 ->order('orderby desc ,create_time DESC')
                 ->page($page,$size)
                 ->select();
-//            foreach ($goodsList as $k=>$v){
-//                $goods_attribute = Db::name('goods_attribute')
-//                    ->where(['goods_id'=>$v['id']])
-//                    ->page($page,$size)
-//                    ->select();
-//                $goodsList[$k]['skuData'] =$goods_attribute;
-//            }
+
             return ajax_return($goodsList,'ok','200');
         }
         #获取这个商品的详情
@@ -62,30 +56,51 @@
                 return ajax_return_error('缺少商品id','500');
             }
             #浏览记录 start
-            $browse=[];
-            $browseRes = Db::name('goods_browse')
-                ->where(['openid'=>$this->userInfo['openid'],'goods_id'=>$id])
-                ->find();
-            $time = time();
-            if( empty($browseRes) ){
-                Db::name('goods_browse')->insert(['create_time'=>$time,'update_time'=>$time,'openid'=>$this->userInfo['openid'],'goods_id'=>$id ,'num'=>1]);
-            }else{
-                Db::name('goods_browse')->where(['openid'=>$this->userInfo['openid'],'goods_id'=>$id])->setInc('num',1);
+            if($this->userInfo['openid']){
+                $browse=[];
+                $browseRes = Db::name('goods_browse')
+                    ->where(['openid'=>$this->userInfo['openid'],'goods_id'=>$id])
+                    ->find();
+                $time = time();
+                if( empty($browseRes) ){
+
+                    Db::name('goods_browse')
+                        ->insert(['create_time'=>$time,'update_time'=>$time,'openid'=>$this->userInfo['openid'],'goods_id'=>$id ,'num'=>1]);
+                }else{
+                    Db::name('goods_browse')->where(['openid'=>$this->userInfo['openid'],'goods_id'=>$id])->setInc('num',1);
+                }
             }
             #浏览记录 end
-            $goods =Db::name('goods')->where(['id'=>$id])->find();
-//            dump($goods);die;
-            $skuData =  Db::name('goods_attribute')
-                ->where(['goods_id'=>$id])
-                ->select();
-            $proprety_name =  Db::name('goods_proprety_name')
-                ->where(['goods_id'=>$id])
-                ->select();
-            $proprety_name_val =  Db::name('goods_proprety_name')->alias('n')
-                ->field('n.id as pro_id,n.name,fy_goods_proprety_val.value,fy_goods_proprety_val.id')
-                ->join('fy_goods_proprety_val','fy_goods_proprety_val.propre_name_id=n.id')
-                ->where(['n.goods_id'=>$id])
-                ->select();
+            $goods = Cache::get('goodsDetail'.$id);
+            if(!$goods){
+                $goods =Db::name('goods')->where(['id'=>$id])->find();
+                Cache::set('goodsDetail'.$id,$goods,30*60);
+            }
+            $skuData = Cache::get('skuData'.$id);
+            if(!$skuData){
+                $skuData =  Db::name('goods_attribute')
+                    ->field('id,goods_id,attribute_name,goods_code,store,price,bar_code,point_score')
+                    ->where(['goods_id'=>$id])
+                    ->select();
+                Cache::set('skuData'.$id,$skuData,30*60);
+            }
+            $proprety_name = Cache::get('proprety_name'.$id);
+            if(!$proprety_name){
+                $proprety_name =  Db::name('goods_proprety_name')
+                    ->field('id,goods_id,name,goods_class_id')
+                    ->where(['goods_id'=>$id])
+                    ->select();
+                Cache::set('proprety_name'.$id,$proprety_name,30*60);
+            }
+            $proprety_name_val = Cache::get('proprety_name_val'.$id);
+            if(!$proprety_name_val){
+                $proprety_name_val =  Db::name('goods_proprety_name')->alias('n')
+                    ->field('n.id as pro_id,n.name,fy_goods_proprety_val.value,fy_goods_proprety_val.id')
+                    ->join('fy_goods_proprety_val','fy_goods_proprety_val.propre_name_id=n.id')
+                    ->where(['n.goods_id'=>$id])
+                    ->select();
+                Cache::set('proprety_name_val'.$id,$proprety_name_val,30*60);
+            }
             $arr =[];
             foreach($proprety_name as $k=>$v){
                 foreach ($proprety_name_val as $key=>$val){
@@ -105,16 +120,12 @@
                 $goods['service'] = json_decode($goods['service'],true);
             }
             #查询该商品是否有优惠券在这里显示的一定是商品优惠券
-          //  dump($goods);
             $this->view->assign('goods',$goods);
             $this->view->assign('skuData',$skuData);
             $this->view->assign('proprety_name',$proprety_name);
             $this->view->assign('proprety_name_val',$proprety_name_val);
             $this->view->assign('arr',$arr);
             #获取猜你喜欢的商品
-          // dump($arr);
-//           dump($proprety_name_val);
-           //dump($skuData);die;
             $this->view->assign('guestGoods',$this->guestYouLike($id));
             $arr = $this->getGoodsgoodOrBad($id);
             $lotterys =$this->return_lottery($id);
@@ -122,23 +133,26 @@
             $this->view->assign('bad', $arr['bad']  );
             $this->view->assign('mid', $arr['mid'] );
             $this->view->assign('good', $arr['good'] );
-            //dump($lotterys);
-            //$this->view->assign('lotterys',$this->getLottery($id) );
             return $this->view->fetch();
         }
 
         public function getGoodsgoodOrBad($id)
         {
-            $bad = Db::name('goods_comment')
-                ->where(['status'=>1,'goods_id'=>$id,'avg_score'=>['between',[0,2] ]])
-                ->count();
-            $mid = Db::name('goods_comment')
-                ->where(['status'=>1,'goods_id'=>$id,'avg_score'=>['between',[2,4] ]])
-                ->count();
-            $good = Db::name('goods_comment')
-                ->where(['status'=>1,'goods_id'=>$id,'avg_score'=>['between',[4,5] ]])
-                ->count();
-            return ['bad'=>$bad,'mid'=>$mid,'good'=>$good];
+            $getGoodsgoodOrBad = Cache::get('getGoodsgoodOrBad');
+            if(!$getGoodsgoodOrBad){
+                $bad = Db::name('goods_comment')
+                    ->where(['status'=>1,'goods_id'=>$id,'avg_score'=>['between',[0,2] ]])
+                    ->count();
+                $mid = Db::name('goods_comment')
+                    ->where(['status'=>1,'goods_id'=>$id,'avg_score'=>['between',[2,4] ]])
+                    ->count();
+                $good = Db::name('goods_comment')
+                    ->where(['status'=>1,'goods_id'=>$id,'avg_score'=>['between',[4,5] ]])
+                    ->count();
+                $getGoodsgoodOrBad=['bad'=>$bad,'mid'=>$mid,'good'=>$good];
+                Cache::set('getGoodsgoodOrBad',$getGoodsgoodOrBad,60*30);
+            }
+            return $getGoodsgoodOrBad;
         }
 
         #商品搜索
@@ -184,14 +198,10 @@
                 Db::name('search')->insert($data);
             }
             $searchId = Db::name('search')->getLastInsID();
-           //if( empty($goodsList) ){
-           //    return ajax_return_error('什么也没有搜到','500','');
-           //}else{
-                Db::name('search')
-                    ->where(['id'=>$searchId])
-                    ->update(['goods_id'=>join(array_column($goodsList,'id'),',')]);
-                return ajax_return($goodsList,'ok','200');
-           // }
+            Db::name('search')
+                ->where(['id'=>$searchId])
+                ->update(['goods_id'=>join(array_column($goodsList,'id'),',')]);
+            return ajax_return($goodsList,'ok','200');
         }
         public function getSearchName(){
             $name = $this->request->param('goodsName');
@@ -307,7 +317,6 @@
                     ->where(['status'=>1,'goods_id'=>$data['id'],'avg_score'=>['between',[$data['start'],$data['end'] ]]])
                     ->page($page,$size)
                     ->count();
-//                dump($comment);
                 return ajax_return($comment,'ok','200');
             }else{
                 $arr = $this->getGoodsgoodOrBad( $this->request->param('goods_id'));
@@ -318,12 +327,12 @@
                 return $this->view->fetch('commentsList');
             }
         }
-        #获取商品评论接口
+        #积分商城
         public function  goodsScore(){
             $this->assign('titleName', "积分商城");
             return $this->view->fetch('goodsScore');
         }
-        #获取商品评论接口
+        #限时抢购
         public function  rushPurchase(){
             $this->assign('titleName', "限时抢购");
             return $this->view->fetch('rushPurchase');
@@ -347,8 +356,6 @@
                 'type'=>['in', $arrType],
                 'grant_end_date' =>['>', $time],
             ])->select();
-//            echo Db::name('lottery')->getLastSql();
-//            dump($lotterys);die;
             #查询领取过这个奖券
             $lotteryLogs = Db::name('lottery_log')->where(['openid' => $this->userInfo['openid']])->select();
             foreach ($lotterys as $k=>$lottery){
@@ -368,9 +375,7 @@
                 }else if($lot['expire_type'] == 1){
                     array_push($resultLottery, $lot);
                 }
-
             }
-//            dump($resultLottery);die;
             return $resultLottery;
         }
 
@@ -397,13 +402,9 @@
                 "goods_id"=>['in',$arrGoodsId],
                 'status'=>1,
                 'isdelete'=>'0',
-                // 'grant_start_date' =>['<', $time],
                 'type'=>['in', $arrType],
                 'use_type'=>0,
-                // 'grant_end_date' =>['>', $time],
             ])->select();
-//            echo Db::name('lottery')->getLastSql();
-//            dump($lotterys);die;
             #查询领取过这个奖券
             $lotteryLogs = Db::name('lottery_log')->where(['openid' => $this->userInfo['openid']])->select();
             foreach ($tempLottery as $k=>$lottery){
@@ -414,7 +415,6 @@
                     }
                 }
             }
-            // dump($tempLottery);
             foreach ($tempLottery as $key=>$lot){
                 #expire_type 0 表示有效期是按日期设置 1 按天数设置
                 if($lot['expire_type'] ==0 &&
@@ -436,7 +436,6 @@
                 }
 
             }
-
             return $lotterys;
         }
 

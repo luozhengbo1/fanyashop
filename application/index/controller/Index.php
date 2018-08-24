@@ -15,12 +15,20 @@ class Index extends Mustlogin
         $this->userInfo['uid'] = isset($this->userInfo['id'])?$this->userInfo['id']:'';
         Hook::exec('app\\index\\behavior\\LoginLog', 'run',  $this->userInfo);
         #获取轮播图数据
-        $sildeShow = new  Sildeshow($num = 6);
-        $getSildeShow = $sildeShow->getSildeShow();
+        $getSildeShow = Cache::get('getSildeShow');
+        if(!$getSildeShow){
+            $sildeShow = new  Sildeshow($num = 6);
+            $getSildeShow = $sildeShow->getSildeShow();
+            Cache::set('getSildeShow',$getSildeShow,60*30);
+        }
         $this->view->assign('sildeShow', $getSildeShow);
         #功能模块
-        $modular = new Modular($num = 5);
-        $getModular = $modular->getModular();
+        $getModular = Cache::get('getModular');
+        if(!$getModular){
+            $modular = new Modular($num = 5);
+            $getModular = $modular->getModular();
+            Cache::set('getModular',$modular,60*30);
+        }
         $this->view->assign('modular', $getModular);
         $this->view->assign('titleName', "泛亚商城");
         return $this->fetch();
