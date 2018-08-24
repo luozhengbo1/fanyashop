@@ -75,7 +75,7 @@
             </a>
             <div class="module  clear pr10 pt5 mb5" >
                 <div class="cont tr total-info">
-                    {if condition="$vo['lottery_detail'] "}
+                    {if condition="$vo['lottery_detail'] && $vo['lottery_detail']['coupon_money']"}
                     <p class="lh30 clear pl10 goodsLottery" id="goodsLottery" data_coupon_money="{$vo['lottery_detail']['coupon_money']}" onclick="showPop('goodsVoucher')">
                         <span class="fl"> {$vo['lottery_detail']['name']}</span>
                         <span class="fr">
