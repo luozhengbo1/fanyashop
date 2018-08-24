@@ -74,7 +74,6 @@
                 if(data[i].price_real && data[i].price_real!=0){
                     price = notEmpty(data[i].price_real);
                 }
-                if(!activeFlag) continue;//已经结束的活动不显示
                 html +='<li  class="grid-item">';
                 if(activeFlag)
                     html +='             <a  href="'+urlConnect("{:url('goods/detail')}",{id:data[i].id})+'">';

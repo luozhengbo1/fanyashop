@@ -149,21 +149,20 @@
             $size = $this->request->param('size');
             $showArea = $this->request->param('show_area');
             $tempArr = explode(",", $showArea);
-            //空查所有
-            if(empty($name) ){
-                //return ajax_return_error('缺少搜索参数');
-                $where = [
-                    'status'=>1,
-                    'isdelete'=>0,
-                    'show_area'=>['in',$tempArr],
-                ];
-            }else{
-                $where =[
-                    'status'=>1,
-                    'isdelete'=>0,
-                    'name'=>['like',"%$name%"],
-                    'show_area'=>['in',$tempArr],
-                ];
+            $time = time();
+            $where = [
+                'status'=>1,
+                'isdelete'=>0,
+                'show_area'=>['in',$tempArr],
+            ];
+            //关键字非空查询
+            if(!empty($name) ){
+                $where['name'] = ['like',"%$name%"];
+            }
+            if($showArea == 1){
+                //限时抢购 查出活动区间内的商品
+               $where['start_date'] = ['<', $time];
+               $where['end_date'] = ['>', $time];
             }
             $goodsList = Db::name('goods')
                 ->where($where)
