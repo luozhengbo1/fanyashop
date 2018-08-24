@@ -163,20 +163,20 @@
             $size = $this->request->param('size');
             $showArea = $this->request->param('show_area');
             $tempArr = explode(",", $showArea);
-            //空查所有
-            if(empty($name) ){
-                $where = [
-                    'status'=>1,
-                    'isdelete'=>0,
-                    'show_area'=>['in',$tempArr],
-                ];
-            }else{
-                $where =[
-                    'status'=>1,
-                    'isdelete'=>0,
-                    'name'=>['like',"%$name%"],
-                    'show_area'=>['in',$tempArr],
-                ];
+            $time = time();
+            $where = [
+                'status'=>1,
+                'isdelete'=>0,
+                'show_area'=>['in',$tempArr],
+            ];
+            //关键字非空查询
+            if(!empty($name) ){
+                $where['name'] = ['like',"%$name%"];
+            }
+            if($showArea == 1){
+                //限时抢购 查出活动区间内的商品
+               $where['start_date'] = ['<', $time];
+               $where['end_date'] = ['>', $time];
             }
             $goodsList = Db::name('goods')
                 ->where($where)
@@ -273,8 +273,10 @@
                    ->where(['status'=>1,'isdelete'=>'0','goods_class_id'=>$goodsClass['goods_class_id'],'show_area'=>$thisGoods['show_area' ] ])
                     ->limit(24)
                    ->select();
+
             }
             return  array_chunk($goodsList,6,false);
+
         }
         public function getSku($id){
             $skuData =  Db::name('goods_attribute')
@@ -290,6 +292,7 @@
         #获取这个商品的详情
         public function evaluateList()
         {
+
             return $this->view->fetch('evaluateList');
         }
 
@@ -385,6 +388,8 @@
                 return ajax_return('','删除成功',200);
             }
         }
+
+
 
         public function return_lottery($goods_id)
         {

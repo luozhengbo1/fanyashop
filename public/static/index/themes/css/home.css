@@ -4732,7 +4732,6 @@ span.layui-progress-text {
 
 
 .address-show{
-	color: #333;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;
@@ -4740,6 +4739,7 @@ span.layui-progress-text {
 	-webkit-box-orient: vertical;
 	width: 100px;
 	float: left;
+	text-align: right;
 }
 
 
