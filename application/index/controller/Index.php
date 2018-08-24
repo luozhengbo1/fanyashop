@@ -84,7 +84,7 @@ class Index extends Mustlogin
     }
     public function noPage()
     {
-        $this->assign('titleName', "页面不存在 ");
+        $this->assign('titleName', "访问错误 ");
         return $this->view->fetch('noPage');
     }
 }
