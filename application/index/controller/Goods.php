@@ -45,19 +45,12 @@
                 ->order('orderby desc ,create_time DESC')
                 ->page($page,$size)
                 ->select();
-//            foreach ($goodsList as $k=>$v){
-//                $goods_attribute = Db::name('goods_attribute')
-//                    ->where(['goods_id'=>$v['id']])
-//                    ->page($page,$size)
-//                    ->select();
-//                $goodsList[$k]['skuData'] =$goods_attribute;
-//            }
+
             return ajax_return($goodsList,'ok','200');
         }
         #获取这个商品的详情
         public function detail($id)
         {
-            $tim1 = microtime(true);
             $this->assign('titleName', "商品详情");
             if(!$id){
                 return ajax_return_error('缺少商品id','500');
@@ -140,8 +133,6 @@
             $this->view->assign('bad', $arr['bad']  );
             $this->view->assign('mid', $arr['mid'] );
             $this->view->assign('good', $arr['good'] );
-            $tim2 = microtime(true);
-            echo $tim2-$tim1;
             return $this->view->fetch();
         }
 
