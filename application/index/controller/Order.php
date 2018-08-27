@@ -968,10 +968,10 @@ Class Order extends Mustlogin
             if (!$data['id']) {
                 return $this->error('缺少参数id');
             }
-            if (!$data['wuliu_order']) {
+            if (!$data['type']) {
                 return $this->error('缺少物流公司');
             }
-            if (!$data['user_wuliu_type_order']) {
+            if (!$data['wuliu_order']) {
                 return $this->error('缺少物流单号');
             }
             $data['user_wuliu_type_order'] = $data['type'] . $data['wuliu_order'];
