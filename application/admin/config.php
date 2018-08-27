@@ -16,7 +16,7 @@ use \think\Request;
 //
 $basename = "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}";
 
-//dump($basename);die;
+dump($basename);die;
 return [
     // 模板参数替换
     'view_replace_str' => [
@@ -24,6 +24,7 @@ return [
         '__STATIC__' => $basename . '/static/admin',
         '__LIB__'    => $basename . '/static/admin/lib',
         '__UEDITOR__'=> $basename .'/ueditor',
+        '__PUBLIC__'=> $basename .'/public',
     ],
 
     // traits 目录

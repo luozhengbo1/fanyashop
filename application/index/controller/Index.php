@@ -27,7 +27,7 @@ class Index extends Mustlogin
         if(!$getModular){
             $modular = new Modular($num = 5);
             $getModular = $modular->getModular();
-            Cache::set('getModular',$modular,60*30);
+            Cache::set('getModular',$getModular,60*30);
         }
         $this->view->assign('modular', $getModular);
         $this->view->assign('titleName', "泛亚商城");
@@ -82,11 +82,7 @@ class Index extends Mustlogin
         }
         #不同等级得到不同积分。
     }
-    public function noPage()
-    {
-        $this->assign('titleName', "访问错误 ");
-        return $this->view->fetch('noPage');
-    }
+
 }
 
 

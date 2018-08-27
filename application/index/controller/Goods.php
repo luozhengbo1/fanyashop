@@ -75,7 +75,7 @@
             if(!$goods){
                 $goods =Db::name('goods')->where(['id'=>$id])->find();
                 if(empty($goods)){
-                    return $this->view->fetch('index/error');
+                    return $this->view->fetch('index/noPage');
                 }
                 Cache::set('goodsDetail'.$id,$goods,30*60);
             }
