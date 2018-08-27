@@ -434,13 +434,15 @@ function req_opt(type,json,returnUrl){
 function pub_save(json){
     if(request_flag.save){//请求完成后才能进行下一次请求
         request_flag.save = false;
-        layerLoad();
+       // layerLoad();
+        loadShadow();
         $.ajax({
             url:json.url,
             type:'post',
             data:json.data,
             dataType:'json',
             success: function(data){
+                closeLoadShadow();
                 layer_msg(data.msg);
                 if(data.code ==200){
                     if(data.redirect && data.redirect!="undefined"){
@@ -467,7 +469,8 @@ function pub_save(json){
 function pub_edit(json){
     if(request_flag.edit){//请求完成后才能进行下一次请求
         request_flag.edit = false;
-        layerLoad();
+      //  layerLoad();
+        loadShadow();
         setTimeout(function () {
             $.ajax({
                 url:json.url,
@@ -475,6 +478,7 @@ function pub_edit(json){
                 data:json.data,
                 dataType:'json',
                 success: function(data){
+                    closeLoadShadow();
                     layer_msg(data.msg);
                     if(data.code ==200){
                         if(json.complete){
