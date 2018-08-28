@@ -117,10 +117,9 @@
     $('#nav_'+nav_param).click();
     function loadOrderData(){
         var status = $('#navListTab').find('.active').attr('data-status');
-        //loadShadow();
-        initData('dataList');
+        loadShadow();
         hideEmptyWrap();
-        pageload({
+        var loadOption = {
             targetWarp:'dataListWrap',
             target:'dataList',
             page:1,
@@ -131,7 +130,12 @@
             },
             dealFun:dealData,
             complete: loadComplete,
-        });
+        };
+        if(!(window.loadPageFun)){
+            pageload(loadOption);
+        }else{
+            loadPageFun.dataInit(loadOption);
+        }
     }
     function dealData(result) {
         var html='';

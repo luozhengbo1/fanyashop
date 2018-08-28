@@ -4032,6 +4032,9 @@ a {
 	float: left;
 	text-align: center;
 }
+.nav-list-tab li a{
+	display: block;
+}
 .nav-list-tab li.active{
 	border-bottom: 2px solid orangered;
 }

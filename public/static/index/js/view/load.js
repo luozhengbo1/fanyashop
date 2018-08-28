@@ -18,19 +18,14 @@
 */
 var requsetNum = 0; //请求次数
 var pageload = function(options){
-    return new MyPageload(this, options);
+    window.loadPageFun =  new MyPageload(options);
 };
-var MyPageload = function(element, options){
+var MyPageload = function(options){
     var _this = this;
-    _this.init(options);
-};
-// 初始化
-MyPageload.prototype.init = function(options){
-    var me = this;
-    me.opts = $.extend(true, {}, {
+    this.opts = $.extend(true, {}, {
         domDown : {                                                          // 下方DOM
             domClass   : 'dropload-down',
-        //    domRefresh : '<div class="droploadEle dropload-refresh hide">↑上拉加载更多</div>',
+            //    domRefresh : '<div class="droploadEle dropload-refresh hide">↑上拉加载更多</div>',
             domLoad    : '<div class="droploadEle dropload-load hide"><span class="loading"></span>拼命加载中...</div>',
             domNoData  : '<div class="droploadEle dropload-noData hide">.我是有底线的额.亲</div>',
             emptyData  : '<div class="droploadEle dropload-noData hide">.数据为空.</div>'//第一页加载就没有数据
@@ -49,6 +44,11 @@ MyPageload.prototype.init = function(options){
         dealFun:'',
         complete:'',//数据加载完成后调用函数
     }, options);
+    _this.init();
+};
+// 初始化
+MyPageload.prototype.init = function(){
+    var me = this;
     var $targetWarp = $('#'+me.opts.targetWarp),
         $target = $('#'+me.opts.target);
 
@@ -150,7 +150,36 @@ MyPageload.prototype.init = function(options){
     }
 
 };
-
+//数据初始化
+MyPageload.prototype.dataInit = function (options) {
+    var targetWarp = this.opts.targetWarp,target=this.opts.target;
+    $('#'+target).empty();
+    $('.dropload-down').remove();
+    this.opts = $.extend(true, {}, {
+        domDown : {                                                          // 下方DOM
+            domClass   : 'dropload-down',
+            //    domRefresh : '<div class="droploadEle dropload-refresh hide">↑上拉加载更多</div>',
+            domLoad    : '<div class="droploadEle dropload-load hide"><span class="loading"></span>拼命加载中...</div>',
+            domNoData  : '<div class="droploadEle dropload-noData hide">.我是有底线的额.亲</div>',
+            emptyData  : '<div class="droploadEle dropload-noData hide">.数据为空.</div>'//第一页加载就没有数据
+        },
+        autoLoad : true,                                                     // 自动加载
+        targetWarp:'',
+        target:'',
+        page:1,
+        size:10,
+        noData:false,//没有数据  true有数据
+        loading:false,//正在加载  false加载完成
+        ajaxData:{
+            url:"#",
+            data:{},
+        },
+        dealFun:'',
+        complete:'',//数据加载完成后调用函数
+    }, options);
+    this.init();
+}
+pageload.prototype.dataInit=MyPageload.prototype.dataInit;
 ///每次在重新加载调用时可初始化数据
 function initData(target){
     $('#'+target).empty();
