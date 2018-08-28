@@ -4257,8 +4257,8 @@ a {
 	margin-right: 8px;
 }
 .voucher-market-list .item-img{
-	width:78%;
-	overflow: hidden;
+	/*width:78%;
+	overflow: hidden;*/
 	max-height: .6rem;
 }
 .voucher-market-list .item-img li{
