@@ -973,6 +973,7 @@ Class Order extends Mustlogin
             }
             if (!$data['wuliu_order']) {
                 return $this->error('缺少物流单号');
+
             }
             $data['user_wuliu_type_order'] = $data['type'] . $data['wuliu_order'];
             Db::name('after_sale_following')->where(['id' => $data['id']])->update(['user_wuliu_type_order' => $data['user_wuliu_type_order']]);
