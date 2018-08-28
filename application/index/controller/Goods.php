@@ -141,7 +141,7 @@
 
         public function getGoodsgoodOrBad($id)
         {
-            $getGoodsgoodOrBad = Cache::get('getGoodsgoodOrBad');
+            $getGoodsgoodOrBad = Cache::get('getGoodsgoodOrBad'.$id);
             if(!$getGoodsgoodOrBad){
                 $bad = Db::name('goods_comment')
                     ->where(['status'=>1,'goods_id'=>$id,'avg_score'=>['between',[0,2] ]])
@@ -153,7 +153,7 @@
                     ->where(['status'=>1,'goods_id'=>$id,'avg_score'=>['between',[4,5] ]])
                     ->count();
                 $getGoodsgoodOrBad=['bad'=>$bad,'mid'=>$mid,'good'=>$good];
-                Cache::set('getGoodsgoodOrBad',$getGoodsgoodOrBad,60*30);
+                Cache::set('getGoodsgoodOrBad'.$id,$getGoodsgoodOrBad,60*30);
             }
             return $getGoodsgoodOrBad;
         }
