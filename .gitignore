@@ -4,4 +4,4 @@ application/config.php
 application/database.php
 application/admin/config.php
 application/index/config.php
-
+test.php

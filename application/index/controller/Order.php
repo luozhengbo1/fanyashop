@@ -578,7 +578,7 @@ Class Order extends Mustlogin
                 return json($backData);
             }
             #超过半小时过期
-            if ($orderData['create_time'] + 1800 < time()) {
+            if ($orderData['create_time'] + 60 < time()) {
                 return ajax_return_error('该订单已经失效');
             }
             if ($orderData['pay_status'] == 1 || $orderData['order_status'] == 1) {
@@ -628,10 +628,10 @@ Class Order extends Mustlogin
                     ]);
                 $jsApiParameters = base64_encode($jsApiParameters);
             }
-            #积分扣取
-            if ($orderData['type'] == 0 || $orderData['type'] == 2) {
-
-            }
+//            #积分扣取
+//            if ($orderData['type'] == 0 || $orderData['type'] == 2) {
+//
+//            }
             $backData = array("msg" => "呼起支付", 'code' => 200, 'redirect' => url("pay/index") . "?js_api_parameters={$jsApiParameters}&order_id={$orderData['order_id']}");
             return json($backData);
         }
