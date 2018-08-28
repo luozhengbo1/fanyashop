@@ -55,8 +55,8 @@ MyPageload.prototype.init = function(){
     //将下滑元素插入到目标包裹中
     if($targetWarp.find("."+me.opts.domDown.domClass).size()<1){
         $targetWarp.append('<div class="'+me.opts.domDown.domClass+'">'+me.opts.domDown.domLoad+'</div>');
-        me.$domDown = $('.'+me.opts.domDown.domClass);
     }
+    me.$domDown = $('.'+me.opts.domDown.domClass);
     // 加载下方
 
     $(window).on('scroll',function(){
@@ -71,7 +71,7 @@ MyPageload.prototype.init = function(){
 
     // 加载下方
     function loadDown(me){
-        me.$domDown.html(me.domDown);
+        me.$domDown.html(me.opts.domDown.domLoad);
         me.opts.loading = true;
         setTimeout(function () {
             ++requsetNum;
