@@ -147,10 +147,10 @@
                     ->where(['status'=>1,'goods_id'=>$id,'avg_score'=>['between',[0,2] ]])
                     ->count();
                 $mid = Db::name('goods_comment')
-                    ->where(['status'=>1,'goods_id'=>$id,'avg_score'=>['between',[2,4] ]])
+                    ->where(['status'=>1,'goods_id'=>$id,'avg_score'=>['between',[2.0001,4] ]])
                     ->count();
                 $good = Db::name('goods_comment')
-                    ->where(['status'=>1,'goods_id'=>$id,'avg_score'=>['between',[4,5] ]])
+                    ->where(['status'=>1,'goods_id'=>$id,'avg_score'=>['between',[4.0001,5] ]])
                     ->count();
                 $getGoodsgoodOrBad=['bad'=>$bad,'mid'=>$mid,'good'=>$good];
                 Cache::set('getGoodsgoodOrBad'.$id,$getGoodsgoodOrBad,60*30);
@@ -309,10 +309,12 @@
                 if(!$data['id']){
                     return ajax_return_error('缺少参数id');
                 }
+                $data['start']=$data['start']+0.0001;
                 $comment = Db::name('goods_comment')
                     ->where(['status'=>1,'goods_id'=>$data['id'], 'avg_score'=>['between',[$data['start'],$data['end'] ]]])
                     ->page($page,$size)
                     ->select();
+//                echo Db::name('goods_comment')->getLastSql();die;
                 $count = Db::name('goods_comment')
                     ->where(['status'=>1,'goods_id'=>$data['id'],'avg_score'=>['between',[$data['start'],$data['end'] ]]])
                     ->page($page,$size)
