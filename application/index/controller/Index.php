@@ -39,6 +39,11 @@ class Index extends Mustlogin
         $this->assign('titleName', "个人消息 ");
         return $this->view->fetch();
     }
+    public function waitDevelop()
+    {
+        $this->assign('titleName', "等到开发... ");
+        return $this->view->fetch('waitDevelop');
+    }
     public function newCustomerGiftBag($gift_bag_id=3)
     {
         #查询是否有新人礼包
