@@ -15,9 +15,7 @@ class Wechatpay extends Controller
     {
         header("content-type:text/html;charset=utf-8");
         parent::__construct();
-
     }
-
     # 微信支付回调
     public function notify()
     {
@@ -94,7 +92,7 @@ class Wechatpay extends Controller
                 $scoreLog['source'] = 7;
                 $scoreLog['uid'] = $user['id'];
                 $scoreLog['source_id'] = 0;
-                $scoreLog['score'] = -$decScore;
+                $scoreLog['score'] = -$totalScore;
                 $scoreLog['time'] = time();
                 Db::name('score_log')->insert($scoreLog);
                 include_once "sendMsg/SDK/WeiXin.php";
@@ -191,7 +189,7 @@ class Wechatpay extends Controller
                 $scoreLog['source'] = 7;
                 $scoreLog['source_id'] = 0;
                 $scoreLog['uid'] = $user['id'];
-                $scoreLog['score'] = -$decScore;
+                $scoreLog['score'] = -$totalScore;
                 $scoreLog['time'] = time();
                 Db::name('score_log')->insert($scoreLog);
 
@@ -229,7 +227,7 @@ class Wechatpay extends Controller
         $wxConfig = new \WxPayConfig();
         $notify->Handle($wxConfig, true);
         $orderInfo = \WxPayResults::Init($wxConfig, $xml);
-        $orderInfo['out_trade_no']="144121740220180809112541";
+//        $orderInfo['out_trade_no']="144121740220180809112541";
 //        $orderInfo['openid']="omQYXwNAT5uC15TQqMGxajJzqo4s";
         if (empty($orderInfo)) {
             file_put_contents("wx_pay_error.log", $xml . "\r", 8);

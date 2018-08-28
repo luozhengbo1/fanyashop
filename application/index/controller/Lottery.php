@@ -23,12 +23,9 @@ Class Lottery extends Mustlogin
             $time = time();
             if ($type != 0) {
                 $where = [
-                    // 'fy_lottery.grant_start_date' => ['<', $time],
-                    // 'fy_lottery.grant_end_date' => ['>', $time],
                     'fy_lottery.status' => 1,
                     'fy_lottery.use_type' => 0,
                 ];
-
                 if ($goodsClassId != 'all') {#非通用
                     if (!$goodsClassId) {
                         return ajax_return_error('缺少参数分类id');
@@ -50,8 +47,7 @@ Class Lottery extends Mustlogin
                         ->page($page, $size)
                         ->select();
                 }
-
-//                echo Db::name('goods')->getLastSql();die;
+//
             } else {
                 $lotterys = Db::name('lottery')
                     ->where([
@@ -63,9 +59,11 @@ Class Lottery extends Mustlogin
                     ])
                     ->page($page, $size)
                     ->select();
-                // dump($lotterys);
-                // die;
+
             }
+//            echo Db::name('goods')->getLastSql();die;
+//            dump($lotterys);
+//             die;
             $lotteryLogs = Db::name('lottery_log')->where(['openid' => $this->userInfo['openid']])->select();
             foreach ($lotterys as $k => $lottery) {
                 foreach ($lotteryLogs as $key => $log) {
