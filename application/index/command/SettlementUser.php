@@ -8,7 +8,7 @@
 //    $password = '123456';
 //    $dbname = 'tpadmin';
 include_once 'dbConfig.php';
-    $conn = mysqli_connect($servername, $username, $password, $dbname) or die("连接失败：$conn->connect_error");
+    $conn = mysqli_connect($host, $user, $pass, $dbname) or die("连接失败：$conn->connect_error");
     $send_time_two_week = time()-24*60*60*7*2;
     $sql = "select * from fy_order_goods where is_send=1 and send_time<{$send_time_two_week}";#发货的两周自动确认
     $result = mysqli_query($conn,$sql);
