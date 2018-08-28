@@ -364,10 +364,9 @@ class Customer extends Mustlogin
         $userAddress = Db::name('customer_address')->where(
             ['uid' => $userData['id'], 'status' => 1]
         )->find();
-        //dump($userAddress);
         $this->assign('userData', $userData);
         $this->assign('userAddress', $userAddress);
-        return $this->view->fetch();
+        return $this->view->fetch('mySet');
     }
 
     /**

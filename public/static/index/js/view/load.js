@@ -15,7 +15,7 @@
 		dealFun:dealData,
 		complete:fun,数据加载完成后调用函数
      });
-*/
+ */
 var requsetNum = 0; //请求次数
 var pageload = function(options){
     window.loadPageFun =  new MyPageload(options);
@@ -60,7 +60,7 @@ MyPageload.prototype.init = function(){
     // 加载下方
 
     $(window).on('scroll',function(){
-      //  console.log('scroll1:'+me.opts.loading);
+        //  console.log('scroll1:'+me.opts.loading);
         setTimeout(function () {
             if(refreshOk(me)){
                 me.opts.loading = true;
@@ -188,10 +188,10 @@ function initData(target){
 //显示空图标
 function showEmptyWrap(me){
     me.$domDown.html(me.opts.domDown.emptyData);
-   if($('.empty-wrap').size()>0){
-       $('.empty-wrap').show();
-       me.$domDown.html('');
-   }
+    if($('.empty-wrap').size()>0){
+        $('.empty-wrap').show();
+        me.$domDown.html('');
+    }
 
 }
 function hideEmptyWrap(){
@@ -201,10 +201,10 @@ function hideEmptyWrap(){
 }
 //导航时
 function bindTab() {
-  //  $('#navListTab').find('li').attr('onclick','loadOrderData()');
+    //  $('#navListTab').find('li').attr('onclick','loadOrderData()');
 
 }
 function unbindTab(shadow) {
     layer.close(shadow);
-  //  $('#navListTab').find('li').removeAttr('onclick');
+    //  $('#navListTab').find('li').removeAttr('onclick');
 }
