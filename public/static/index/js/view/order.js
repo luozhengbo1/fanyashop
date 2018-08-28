@@ -15,31 +15,25 @@ function refund(order_id,goods_id,sku_id) {
             pub_save({
                 url:url.refund,
                 data:{'order_id':order_id,'goods_id':goods_id,'sku_id':sku_id},
-                complete:loadOrderData,
+                complete:location.reload(),
             })
         }
     });
 }
 //取消订单
 function cancelOrder(order_id,goods_id,sku_id) {
-        //layer.open({
-        //    content: '你确定要取消订单吗？'
-        //    ,btn: ['确定', '不要']
-        //    ,yes: function(index){
-                pub_save({
-                    url:url.cancelOrder,
-                    data:{'order_id':order_id,'goods_id':goods_id,'sku_id':sku_id},
-                    complete:loadOrderData,
-                })
-        //    }
-       // });
+    pub_save({
+        url:url.cancelOrder,
+        data:{'order_id':order_id,'goods_id':goods_id,'sku_id':sku_id},
+        complete:location.reload(),
+    })
 }
 //删除订单
 function deleOrder(order_id,goods_id,sku_id) {
     pub_save({
         url:url.deleOrder,
         data:{'order_id':order_id,'goods_id':goods_id,'sku_id':sku_id},
-        complete:loadOrderData,
+        complete:location.reload(),
     })
 }
 //确认收货

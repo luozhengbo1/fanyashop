@@ -75,7 +75,7 @@
         initData('dataList');
         var classId = $('#voucherClass').find('.active').attr('data-classid');
         var type = $('#voucherClass').find('.active').attr('data-type');
-        pageload({
+        var loadOption = {
             targetWarp:'dataListWrap',
             target:'dataList',
             page:1,
@@ -86,7 +86,12 @@
             },
             dealFun:dealData,
             complete:imageLazy,
-        });
+        };
+        if(!(window.loadPageFun)){
+            pageload(loadOption);
+        }else{
+            loadPageFun.dataInit(loadOption);
+        }
     }
 
     function dealData(data) {
