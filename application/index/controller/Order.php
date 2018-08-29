@@ -267,6 +267,9 @@ Class Order extends Mustlogin
             foreach ($data as $k => $v) {
                 $goodsAttribute = Db::name('goods_attribute')->where(['id' => $v['skuId']])->find();
                 $goods = Db::name('goods')->where(['id' => $v['goodsId']])->find();
+                if($goods['status']==0 || !$goodsAttribute || ( $time  < $goods['start_date'] ||  $goods['end_date']< $time )){
+                    return ajax_return('', '商品失效，请重新下单', '500');
+                }
                 if ($goodsAttribute['store'] < $v['num']) {
                     return ajax_return($goods['name'], '该商品库存不足，还剩' . $goodsAttribute['store'], '500');
                 }
