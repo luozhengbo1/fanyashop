@@ -30,7 +30,13 @@
             <tr class="text-c">
                 <td>商品图片</td>
                 <td>商品名</td>
+                {if condition="$vo['settlement_type'] eq 1"}
                 <td>价格</td>
+                {elseif condition="$vo['settlement_type'] eq 2"  /}
+                <td>积分</td>
+                {else  /}
+                <td>价格+积分</td>
+                {/if}
                 <td>下单时间</td>
                 <td>商品规格</td>
                 <td>购买数量</td>
@@ -49,7 +55,13 @@
             <tr class="text-c">
                 <td class="f-14"><img width="30" height="30" src="{$vo['goods_detail']['main_image']}"/></td>
                 <td class="f-14">{$vo['goods_detail']['name']}</td>
+                {if condition="$vo['settlement_type'] eq 1"}
                 <td class="f-14">{$vo['price']}</td>
+                {elseif condition="$vo['settlement_type'] eq 2"  /}
+                <td class="f-14">{$vo['point_score']}</td>
+                {else  /}
+                <td class="f-14">{$vo['price']}+{$vo['point_score']}</td>
+                {/if}
                 <td class="f-14">{$vo['create_time']|date="Y-m-d H:i:s",###}</td>
                 <td class="f-14">{$vo['sku_val']}</td>
                 <td class="f-14">{$vo['goods_num']}</td>
