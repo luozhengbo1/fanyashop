@@ -70,7 +70,7 @@
                     {/if}
                 </span>
             </li>
-            {if condition="$vo['youhui']"}
+            {if condition="$vo['youhui'] && $vo['settlement_type'] neq 2 "}
             <li class="clear">
                 <span class="fl">优惠</span>
                 <div class="fr">
@@ -87,7 +87,7 @@
                 </div>
             </li>
             {/if}
-            {if condition="$vo['mianyou']"}
+            {if condition="$vo['mianyou'] && $vo['settlement_type'] neq 2"}
             <li class="clear">
                 <span class="fl">免邮</span>
                 <div class="fr">
