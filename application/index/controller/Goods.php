@@ -131,8 +131,15 @@
             #获取猜你喜欢的商品
             $this->view->assign('guestGoods',$this->guestYouLike($id));
             $arr = $this->getGoodsgoodOrBad($id);
-            $lotterys =$this->return_lottery($id);
-            $this->view->assign('lotterys', $lotterys);
+
+            if($goods['settlement_type'] == 2){
+                //结算类型是积分结算
+                $this->view->assign('lotterys', array());
+            }else{
+                $lotterys =$this->return_lottery($id);
+                $this->view->assign('lotterys', $lotterys);
+            }
+
             $this->view->assign('bad', $arr['bad']  );
             $this->view->assign('mid', $arr['mid'] );
             $this->view->assign('good', $arr['good'] );
@@ -349,6 +356,11 @@
             $time = time();
             $resultLottery=array();
             $arrType=[2,4];
+            //积分商品查出优惠券
+            $settlementType = Db::name('goods')
+                ->field('settlement_type')->where(["id"=>$goods_id])->find();
+            dump($settlementType);
+            die;
             $arrGoodsId =[$goods_id,'all'];
             $lotterys = Db::name('lottery')->where([
                 "goods_id"=>['in',$arrGoodsId],
@@ -396,7 +408,8 @@
             #取出商品中发行中，未删除的所具有的券
             $time = time();
             $lotterys=array();
-            $arrType=[2,4];
+            //券的类型
+            $arrType=[2];
             $arrGoodsId =[$goods_id,'all'];
             $tempLottery = Db::name('lottery')->where([
                 "goods_id"=>['in',$arrGoodsId],
