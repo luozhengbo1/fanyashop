@@ -180,8 +180,8 @@
                 'show_area'=>['in',$tempArr],
             ];
             if($showArea ==1){
-                //限时抢购，只查在时间范围内的商品
-                $where['start_date'] = ['<',$time];
+                //限时抢购，只查活动时间没有结束的活动
+               // $where['start_date'] = ['<',$time];
                 $where['end_date'] = ['>',$time];
             }
             //空查所有
