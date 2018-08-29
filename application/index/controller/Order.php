@@ -267,6 +267,9 @@ Class Order extends Mustlogin
             foreach ($data as $k => $v) {
                 $goodsAttribute = Db::name('goods_attribute')->where(['id' => $v['skuId']])->find();
                 $goods = Db::name('goods')->where(['id' => $v['goodsId']])->find();
+                if($goods['status']==0 || !$goodsAttribute || ( $time  < $goods['start_date'] ||  $goods['end_date']< $time )){
+                    return ajax_return('', '商品失效，请重新下单', '500');
+                }
                 if ($goodsAttribute['store'] < $v['num']) {
                     return ajax_return($goods['name'], '该商品库存不足，还剩' . $goodsAttribute['store'], '500');
                 }
@@ -285,7 +288,7 @@ Class Order extends Mustlogin
                         $totalLotteryAll+=1;
                     }
                     if ($checkLotteryLog['lottery_info']['expire_type'] == 1) {
-                        if ($time > ($checkLotteryLog['lottery_info']['expire_time'] * 60 * 24 * 60 + $checkLotteryLog['addtime'])) {
+                        if ($time > ($checkLotteryLog['lottery_info']['expire_time'] * 60 * 24 * 60 + $checkLotteryLog['pay_time'])) {
                             return ajax_return('', '使用的券不在使用期限内', '500');
                         }
                     } else {
@@ -1152,6 +1155,7 @@ Class Order extends Mustlogin
                 ->update(['is_send' => 5]);#待回复
             #记录评价内容
             $orderGoods['goods_detail'] = json_decode($orderGoods['goods_detail'], true);
+            $insert = [];
             $insert = [];
             if ($data['pic']) {
                 $insert['pic'] = join($data['pic'], ',');

@@ -80,7 +80,7 @@ include_once 'dbConfig.php';
     if ( $orderResult->num_rows > 0) {
         while ($row1 = $orderResult->fetch_assoc()){
             #结算金额
-            if($row1['is_settlement']!=1){
+            if($row1['is_settlement']!=1 && ($row1['get_goods_time']< $flagTime ) ){
                 $settMoney = $row1['real_pay_price'];
                 $setUserSql = "update fy_admin_user set balance=balance+'{$settMoney}' where id={$row1['user_id']}";
                 mysqli_query($conn,$setUserSql);
@@ -88,6 +88,5 @@ include_once 'dbConfig.php';
                 $setsql = "update fy_order_goods set is_settlement=1 where id={$row1['id']}";
                 mysqli_query($conn,$setsql);
             }
-
         }
     }

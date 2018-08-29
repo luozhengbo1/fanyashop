@@ -143,6 +143,7 @@
         for(var j = 0; j < result.length; j++){
             var data=result[j],//单个订单
                 order_status = data[0].order_status ,
+                pay_status = data[0].pay_status ,
                 serviceMobile='',
                 order_id=data[0].order_id+"";//订单id
             html +='<li class="orderWrap">';
@@ -238,6 +239,7 @@
                 html +=orderBtnHtml(
                     {
                         order_status:order_status,
+                        pay_status:pay_status,
                         show_area:show_area,
                         is_send:is_send,
                         order_id:order_id,

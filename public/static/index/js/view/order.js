@@ -101,7 +101,7 @@ function logisticForm(id) {
 //商品按钮
 function orderBtnHtml(json){
     var html='';
-    switch(json.order_status)
+    switch(json.pay_status)
     {
         case 1://已支付
             if(json.is_send==0 && json.settlement_type !=settlement.score)

@@ -47,7 +47,6 @@ Class Lottery extends Mustlogin
                         ->page($page, $size)
                         ->select();
                 }
-//
             } else {
                 $lotterys = Db::name('lottery')
                     ->where([
