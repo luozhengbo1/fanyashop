@@ -58,8 +58,8 @@ include_once 'dbConfig.php';
         }
     }
     #将完成的订单商品进行结算
-//    $flagTime = time()-24*60*60*7;
-    $flagTime = time()-8*60;
+    $flagTime = time()-24*60*60*7;
+//    $flagTime = time()-8*60;
     $sqls = "select * from fy_order_goods where is_send=2 or is_send=5";
     $results = mysqli_query($conn,$sqls);
     if ( $results->num_rows > 0) {
