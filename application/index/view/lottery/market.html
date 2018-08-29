@@ -128,6 +128,16 @@
 
             html +='        <div class="clear">';
             html +='            <p class="fl" ><span class="catalog border-tag" style="vertical-align: top">'+class_name+'</span><i>'+data[i].name+'</i></p>';
+            if(data[i].coupon_money){
+                switch(coupon_type){
+                    case  constant.coupon.daijin:
+                        html +='            <p class="price fr f16 bold pr10">￥'+data[i].coupon_real_money+'</p>';
+                        break;
+                    default:
+                        html +='            <p class="price fr f16 bold pr10">￥'+data[i].coupon_money+'</p>';
+                        break;
+                }
+            }
             html +='        </div>';
             html +='        <div class="clear mt5">';
             html +='            <ul class="item-img clear fl">';
