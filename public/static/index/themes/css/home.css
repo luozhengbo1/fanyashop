@@ -4230,10 +4230,11 @@ a {
 	background: red;
 }
 
-.voucher-market-list li{
-	padding: 2px;
+.voucher-market-list li a{
+	padding: 4px 2px;
 	background: white;
 	margin-bottom: 4px;
+    display: block;
 }
 .voucher-market-catalogs {
 	margin: 4px auto;
@@ -4259,7 +4260,7 @@ a {
 .voucher-market-list .item-img{
 	/*width:78%;
 	overflow: hidden;*/
-	max-height: .6rem;
+	max-height: .7rem;
 }
 .voucher-market-list .item-img li{
 	width: 70px;
