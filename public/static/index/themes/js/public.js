@@ -943,8 +943,19 @@ function dealLottery(res) {
     }
 }
 
+//商品是否失效
+function isDiscardFlag(thisData) {
+    return (thisData.pointScore == null && thisData.price == null )|| thisData.status==constant.goodsStatus.down;
+}
 
+/**
+ * 判断商品是否在活动时间内  true 限时抢购不在时间范围
+ */
 
+function noActivityFlag(thisData){
+    return thisData.show_area ==showArea.time
+        && activeStatus(parseInt(thisData.start_date),parseInt(thisData.end_date),parseInt(thisData.currentTime)) !=constant.activity.inActive;
+}
 
 
 
