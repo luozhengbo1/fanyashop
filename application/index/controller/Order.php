@@ -285,7 +285,7 @@ Class Order extends Mustlogin
                         $totalLotteryAll+=1;
                     }
                     if ($checkLotteryLog['lottery_info']['expire_type'] == 1) {
-                        if ($time > ($checkLotteryLog['lottery_info']['expire_time'] * 60 * 24 * 60 + $checkLotteryLog['addtime'])) {
+                        if ($time > ($checkLotteryLog['lottery_info']['expire_time'] * 60 * 24 * 60 + $checkLotteryLog['pay_time'])) {
                             return ajax_return('', '使用的券不在使用期限内', '500');
                         }
                     } else {
@@ -1152,6 +1152,7 @@ Class Order extends Mustlogin
                 ->update(['is_send' => 5]);#待回复
             #记录评价内容
             $orderGoods['goods_detail'] = json_decode($orderGoods['goods_detail'], true);
+            $insert = [];
             $insert = [];
             if ($data['pic']) {
                 $insert['pic'] = join($data['pic'], ',');
