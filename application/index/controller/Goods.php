@@ -166,20 +166,20 @@
             $size = $this->request->param('size');
             $showArea = $this->request->param('show_area');
             $tempArr = explode(",", $showArea);
+            $time = time();
+            $where = [
+                'status'=>1,
+                'isdelete'=>0,
+                'show_area'=>['in',$tempArr],
+            ];
+            if($showArea ==1){
+                //限时抢购，只查在时间范围内的商品
+                $where['start_date'] = ['<',$time];
+                $where['end_date'] = ['>',$time];
+            }
             //空查所有
-            if(empty($name) ){
-                $where = [
-                    'status'=>1,
-                    'isdelete'=>0,
-                    'show_area'=>['in',$tempArr],
-                ];
-            }else{
-                $where =[
-                    'status'=>1,
-                    'isdelete'=>0,
-                    'name'=>['like',"%$name%"],
-                    'show_area'=>['in',$tempArr],
-                ];
+            if(!empty($name) ){
+                $where['name'] = ['like',"%$name%"];
             }
             $goodsList = Db::name('goods')
                 ->where($where)

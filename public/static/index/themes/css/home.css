@@ -3039,7 +3039,8 @@ a {
 	position: relative;
 	background: white;
 	text-align: center;
-	width: 86%;
+	/*width: 86%;*/
+    width: 78%;
 }
 .search-box-cover{
 	position: absolute;
