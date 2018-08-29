@@ -127,22 +127,15 @@ Class Lottery extends Mustlogin
     }
 
     #券清单确认
-    public function affairm($lottery_id, $goods_id)
+    public function affairm($lottery_id)
     {
         $this->assign('titleName', "订单确认");
-        $goods = Db::name('goods')
-            ->where([
-                'id' => ['in', $goods_id],
-            ])
-            ->find();
         $lottery = Db::name('lottery')
             ->where([
                 'id' => ['in', $lottery_id],
             ])
             ->find();
         $this->assign('lottery', $lottery);
-        $this->assign('goods', $goods);
-
         return $this->view->fetch();
 
     }
