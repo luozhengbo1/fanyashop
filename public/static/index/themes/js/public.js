@@ -561,8 +561,8 @@ function masonryShow() {
 
    //setTimeout(function () {
         $('.grid-item-image').height($('.grid-item-image').outerWidth());
-        if($('#searchIcon').size()>0){
-            $('#searchIcon').attr('onclick','searchGoods()')
+        if($('.searchIcon').size()>0){
+            $('.searchIcon').attr('onclick','searchGoods()')
         }
     imageLazy();
     //},500)
