@@ -267,8 +267,14 @@ Class Order extends Mustlogin
             foreach ($data as $k => $v) {
                 $goodsAttribute = Db::name('goods_attribute')->where(['id' => $v['skuId']])->find();
                 $goods = Db::name('goods')->where(['id' => $v['goodsId']])->find();
-                if($goods['status']==0 || !$goodsAttribute || ( $time  < $goods['start_date'] ||  $goods['end_date']< $time )){
+                if($goods['status']==0 || !$goodsAttribute){
                     return ajax_return('', '商品失效，请重新下单', '500');
+                }
+                if($goods['show_area']==1){
+                    if($time  < $goods['start_date'] ||  $goods['end_date']< $time ){
+                        return ajax_return('', '商品失效，请重新下单1', '500');
+                    }
+
                 }
                 if ($goodsAttribute['store'] < $v['num']) {
                     return ajax_return($goods['name'], '该商品库存不足，还剩' . $goodsAttribute['store'], '500');
@@ -278,7 +284,7 @@ Class Order extends Mustlogin
                 }
                 if (!empty($v['youhui_lottery_log_id'])) {
                     #查询使用优惠券是否过期
-                    $checkLotteryLog = Db::name('lottery_log')->field('addtime,lottery_info')->where(['id' => $v['youhui_lottery_log_id']])->find();
+                    $checkLotteryLog = Db::name('lottery_log')->where(['id' => $v['youhui_lottery_log_id']])->find();
                     #检测这张券是否已经使用
                     $checkLotteryLog['lottery_info'] = Db::name('lottery')->where(['id'=>$v['youhuiId']])->find();
                     if($checkLotteryLog['lottery_num']<=0){
@@ -382,6 +388,7 @@ Class Order extends Mustlogin
                 #该商品实际支付价格
                 $skuVal = Db::name('goods_attribute')->where(['id' => $v['skuId']])->find();
                 $orderGoods[$k]['real_pay_price'] = $v['num'] * ($skuVal['price'] + $goodsData['postage']);
+                $orderGoods[$k]['real_pay_score'] = $v['num'] * $skuVal['point_score'] ;
                 $orderGoods[$k]['words'] = $v['words'];
                 $orderGoods[$k]['sku_val'] = $v['val'];
                 $orderGoods[$k]['sku_id'] = $v['skuId'];

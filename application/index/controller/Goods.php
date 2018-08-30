@@ -4,8 +4,9 @@
 	use think\Cache;
 	use think\Session;
 	use think\Controller;
-
-	Class Goods extends  Controller
+    use think\Request;
+    Class Goods extends  Controller
+//	Class Goods extends  Mustlogin
 	{
 	    protected $userInfo;
 	    public function __construct()
@@ -49,7 +50,7 @@
             return ajax_return($goodsList,'ok','200');
         }
         #获取这个商品的详情
-        public function detail($id)
+        public function detail($id,$flag='index')
         {
             $this->assign('titleName', "商品详情");
             if(!$id){
