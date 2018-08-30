@@ -93,6 +93,7 @@ class Wechatpay extends Controller
                 $scoreLog['uid'] = $user['id'];
                 $scoreLog['source_id'] = 0;
                 $scoreLog['score'] = -$totalScore;
+
                 $scoreLog['time'] = time();
                 Db::name('score_log')->insert($scoreLog);
                 include_once "sendMsg/SDK/WeiXin.php";
