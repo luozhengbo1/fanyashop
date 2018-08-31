@@ -27,8 +27,8 @@ class Wechatpay extends Controller
         $notify = new \PayNotifyCallBack();
         $notify->Handle($wxConfig, true);
         $orderInfo = \WxPayResults::Init($wxConfig, $xml);
-//        $orderInfo['out_trade_no']="144121740220180828100556";
-//        $orderInfo['openid']="omQYXwNAT5uC15TQqMGxajJzqo4s";
+//        $orderInfo['out_trade_no']="144121740220180831104147";
+//        $orderInfo['openid']="omQYXwM8TEkiBZR7Ldm891OOWbNQ";
         if (empty($orderInfo)) {
             file_put_contents("wx_pay_error.log", $xml . "\r", 8);
         } else {

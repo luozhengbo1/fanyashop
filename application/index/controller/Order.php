@@ -581,7 +581,7 @@ Class Order extends Mustlogin
                 $scoreLog['source'] = 7;
                 $scoreLog['source_id'] = 0;
                 $scoreLog['uid'] = $user['id'];
-                $scoreLog['score'] = -$decScore;
+                $scoreLog['score'] = - $orderData['total_point'];
                 $scoreLog['time'] = time();
                 Db::name('score_log')->insert($scoreLog);
                 $backData = array("msg" => "购买成功", 'code' => 200, 'redirect' => url("order/index"));
@@ -594,7 +594,27 @@ Class Order extends Mustlogin
             if ($orderData['pay_status'] == 1 || $orderData['order_status'] == 1) {
                 return ajax_return_error('该订单已经支付');
             }
-
+            #检测再次支付的时候使用优惠券
+            $time =time();
+            $orderGoods = Db::name('order_goods')->where(['order_id'=>$data['id']])->select();
+            foreach ($orderGoods as $v){
+                #查询使用优惠券是否过期
+                $checkLotteryLog = Db::name('lottery_log')->where(['id' => $v['lottery_log_id']])->find();
+                #检测这张券是否已经使用
+                $checkLotteryLog['lottery_info'] = Db::name('lottery')->where(['id'=>$v['lottery_id']])->find();
+                if($checkLotteryLog['lottery_num']<=0){
+                    return ajax_return('', $checkLotteryLog['lottery_info']['name'].'该券已经使用了');
+                }
+                if ($checkLotteryLog['lottery_info']['expire_type'] == 1) {
+                    if ($time > ($checkLotteryLog['lottery_info']['expire_time'] * 60 * 24 * 60 + $checkLotteryLog['pay_time'])) {
+                        return ajax_return('', '使用的券不在使用期限内', '500');
+                    }
+                } else {
+                    if ($time < $checkLotteryLog['lottery_info']['expire_start_date'] || $time > $checkLotteryLog['lottery_info']['expire_end_date']) {
+                        return ajax_return('', '使用的券不在使用期限内', '500');
+                    }
+                }
+            }
             if ($orderData['js_api_parameters'] && $orderData['prepay_id']) {
                 $jsApiParameters = base64_encode($orderData['js_api_parameters']);
                 $backData = array(
