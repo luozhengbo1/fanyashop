@@ -19,14 +19,22 @@ class Wechatpay extends Controller
     # 微信支付回调
     public function notify()
     {
-        $xml = isset($GLOBALS['HTTP_RAW_POST_DATA']) ? $GLOBALS['HTTP_RAW_POST_DATA'] : '';
-        # 支付成功后更新支付状态，支付时间
-        include_once 'WxPaySDK/Notify.php'; # 微信回调通知
-        include_once 'WxPaySDK/WxPay.Config.php'; # 微信回调通知
-        $wxConfig = new \WxPayConfig();
-        $notify = new \PayNotifyCallBack();
-        $notify->Handle($wxConfig, true);
-        $orderInfo = \WxPayResults::Init($wxConfig, $xml);
+        $dataPost = $this->request->post();
+        if(isset($dataPost['flag'])){
+            $orderInfo['out_trade_no']=$dataPost['order_id'];
+            $orderInfo['openid']=$dataPost['openid'];
+            $xml='';
+        }else{
+            $xml = isset($GLOBALS['HTTP_RAW_POST_DATA']) ? $GLOBALS['HTTP_RAW_POST_DATA'] : '';
+            # 支付成功后更新支付状态，支付时间
+            include_once 'WxPaySDK/Notify.php'; # 微信回调通知
+            include_once 'WxPaySDK/WxPay.Config.php'; # 微信回调通知
+            $wxConfig = new \WxPayConfig();
+            $notify = new \PayNotifyCallBack();
+            $notify->Handle($wxConfig, true);
+            $orderInfo = \WxPayResults::Init($wxConfig, $xml);
+        }
+
 //        $orderInfo['out_trade_no']="144121740220180831104147";
 //        $orderInfo['openid']="omQYXwM8TEkiBZR7Ldm891OOWbNQ";
         if (empty($orderInfo)) {
@@ -77,8 +85,6 @@ class Wechatpay extends Controller
                             }
                         }
                     }
-
-
                 }
                 #扣取相应的积分
                 #将用户积分扣取，并将扣取记录记下来

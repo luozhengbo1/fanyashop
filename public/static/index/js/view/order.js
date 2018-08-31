@@ -15,7 +15,11 @@ function refund(order_id,goods_id,sku_id) {
             pub_save({
                 url:url.refund,
                 data:{'order_id':order_id,'goods_id':goods_id,'sku_id':sku_id},
-                complete:location.reload(),
+                complete:function () {
+                    setTimeout(function () {
+                        location.reload()
+                    },2000)
+                },
             })
         }
     });
@@ -25,7 +29,11 @@ function cancelOrder(order_id,goods_id,sku_id) {
     pub_save({
         url:url.cancelOrder,
         data:{'order_id':order_id,'goods_id':goods_id,'sku_id':sku_id},
-        complete:location.reload(),
+        complete:function () {
+            setTimeout(function () {
+                location.reload()
+            },2000)
+        },
     })
 }
 //删除订单
@@ -33,7 +41,11 @@ function deleOrder(order_id,goods_id,sku_id) {
     pub_save({
         url:url.deleOrder,
         data:{'order_id':order_id,'goods_id':goods_id,'sku_id':sku_id},
-        complete:location.reload(),
+        complete:function () {
+            setTimeout(function () {
+                location.reload()
+            },2000)
+        },
     })
 }
 //确认收货

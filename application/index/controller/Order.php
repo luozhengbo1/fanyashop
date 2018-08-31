@@ -446,26 +446,29 @@ Class Order extends Mustlogin
             }
             #减去订单总价上的优惠价
             $orderAll['total_price'] = $orderAll['total_price'] - $lotteryTotalPrice;
-            if( $orderAll['total_price']<=0) $orderAll['total_price']=0.01;
-            #计算几个商户进行分成多个订单
-            $tools = new \JsApiPay();
-            //$openId = $tools->GetOpenid(); # 获取微信用户信息，因为不在安全域名内，所以获取不到，使用github的实现。
-            //②、统一下单
-            $input = new \WxPayUnifiedOrder();
-            $input->SetBody("泛亚商城 的订单");
-            $input->SetAttach("附加参数");
-            $input->SetOut_trade_no($orderId);
-            $input->SetTotal_fee($orderAll['total_price'] * 100);
-            $input->SetTime_start(date("YmdHis"));
-            $input->SetTime_expire(date("YmdHis", time() + 600));
-            $input->SetGoods_tag("");
-            #微信支付回调变更
-            $notifyUrl = $wxConfig->GetNotifyUrl("http://" . $_SERVER['HTTP_HOST'] . "/index.php/index/wechatpay/notify");
-            $input->SetNotify_url($notifyUrl);
-            $input->SetTrade_type("JSAPI");
-            $input->SetOpenid($this->userInfo['openid']);
-            $unifiedOrder = \WxPayApi::unifiedOrder($wxConfig, $input);
-            $jsApiParameters = $tools->GetJsApiParameters($unifiedOrder);
+            if( $orderAll['total_price']<=0) $orderAll['total_price']=0;
+            if( $orderAll['total_price']>0){
+                #计算几个商户进行分成多个订单
+                $tools = new \JsApiPay();
+                //$openId = $tools->GetOpenid(); # 获取微信用户信息，因为不在安全域名内，所以获取不到，使用github的实现。
+                //②、统一下单
+                $input = new \WxPayUnifiedOrder();
+                $input->SetBody("泛亚商城 的订单");
+                $input->SetAttach("附加参数");
+                $input->SetOut_trade_no($orderId);
+                $input->SetTotal_fee($orderAll['total_price'] * 100);
+                $input->SetTime_start(date("YmdHis"));
+                $input->SetTime_expire(date("YmdHis", time() + 600));
+                $input->SetGoods_tag("");
+                #微信支付回调变更
+                $notifyUrl = $wxConfig->GetNotifyUrl("http://" . $_SERVER['HTTP_HOST'] . "/index.php/index/wechatpay/notify");
+                $input->SetNotify_url($notifyUrl);
+                $input->SetTrade_type("JSAPI");
+                $input->SetOpenid($this->userInfo['openid']);
+                $unifiedOrder = \WxPayApi::unifiedOrder($wxConfig, $input);
+                $jsApiParameters = $tools->GetJsApiParameters($unifiedOrder);
+            }
+
 //                $orderAll['prepay_id'] = $unifiedOrder['prepay_id'];
 //                $orderAll['js_api_parameters'] = $jsApiParameters;
             # 插入订单数据
@@ -486,9 +489,30 @@ Class Order extends Mustlogin
                     }
                 }
                 if ($type == 0 || $type == 2) { #钱 和积分加钱
-                    $jsApiParameters = base64_encode($jsApiParameters);
-                    $backData = array("msg" => "呼起支付", 'code' => 200, 'redirect' => url("pay/index") . "?js_api_parameters={$jsApiParameters}&order_id={$orderId}");
-                    die(json_encode($backData));
+                    echo 345;
+                    if($orderAll['total_price']==0){
+                        $data = array("order_id" => $orderAll['order_id'],"openid" => $this->userInfo['openid'],'flag'=>1);
+                        $data = http_build_query($data);
+                        $opts = array(
+                            'http'=>array(
+                                'method'=>"POST",
+                                'header'=>"Content-type: application/x-www-form-urlencoded\r\n".
+                                    "Content-length:".strlen($data)."\r\n" .
+                                    "Cookie: foo=bar\r\n" .
+                                    "\r\n",
+                                'content' => $data,
+                            )
+                        );
+                        $cxContext = stream_context_create($opts);
+                        $url ="http://".$_SERVER['HTTP_HOST'].'/index.php/index/wechatpay/notify';
+                        $sFile = file_get_contents($url, false, $cxContext);
+//                        dump($sFile);
+                    }else{
+                        $jsApiParameters = base64_encode($jsApiParameters);
+                        $backData = array("msg" => "呼起支付", 'code' => 200, 'redirect' => url("pay/index") . "?js_api_parameters={$jsApiParameters}&order_id={$orderId}");
+                        die(json_encode($backData));
+                    }
+
                 } else {
                     #将用户积分扣取，并将扣取记录记下来
                     $decScore = $user['score'] - $totalScore;
@@ -826,6 +850,9 @@ Class Order extends Mustlogin
                 'goods_id' => $data['goods_id'],
                 'sku_id' => $data['sku_id'],
             ])->find();
+            if($orderGoods['real_pay_price']==0){
+                return ajax_return_error('该订单不支持退换');
+            }
             #积分商品不支持退货退款
             $goods = Db::name('goods')->where(['id' => $data['goods_id']])->find();
 //                if($goods['settlement_type']==2 || $goods['settlement_type']==3){
