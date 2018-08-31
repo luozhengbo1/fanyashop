@@ -132,7 +132,7 @@ class Wechatpay extends Controller
         $wxConfig = new \WxPayConfig();
         $notify->Handle($wxConfig, true);
         $orderInfo = \WxPayResults::Init($wxConfig, $xml);
-//        $orderInfo['out_trade_no']="1441217402201808131457117325";
+//        $orderInfo['out_trade_no']="1441217402201808311425434714";
 //        $orderInfo['openid']="omQYXwNAT5uC15TQqMGxajJzqo4s";
         if (empty($orderInfo)) {
             file_put_contents("wx_pay_error.log", $xml . "\r", 8);
@@ -140,7 +140,9 @@ class Wechatpay extends Controller
             file_put_contents("wx_pay_success.log", $xml . "\r", 8);
             #付款成功通知
             $orderData = Db::name('order')->where(['order_id' => $orderInfo['out_trade_no']])->find();
+//            dump(234);
             if ($orderData['is_tui'] == 0  ) {
+
                 #减对应商品的库存
                 $goodsname = '';
                 $goods_data = '';
@@ -153,7 +155,7 @@ class Wechatpay extends Controller
                     Db::name('goods_attribute')->where(['id' => $v['sku_id']])->update(['store' => $store]);
                     #加销量
                     Db::name('goods')->where(['id' => $goodsStore['goods_id']])->setInc('buy_num', $goodsStore['store']);
-                    $goodsDa =json_decode($v,true);
+                    $goodsDa =json_decode($v['goods_detail'],true);
                     $goodsname .= $goodsDa['name'] . "  " . $v['sku_val'] . "*" . $v['goods_num'] . "   ";
                     $goods_data .= $goods_data . '' . $goodsDa['name'] . "  " . $v['sku_val'] . "×" . $v['goods_num'] . "<br/>";
                     #将优惠券记录为失效
@@ -179,6 +181,7 @@ class Wechatpay extends Controller
                 Db::name('order')->where($where)->update($data);
                 #减去对应商品的积分
                 $totalScore = $orderData['total_point'];
+
                 #将用户积分扣取，并将扣取记录记下来
 //            dump($order);die;
                 $decScore = $user['score'] - $totalScore;

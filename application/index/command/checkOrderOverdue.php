@@ -6,7 +6,7 @@
 //$dbname = 'tpadmin';
 $reas = include_once 'dbConfig.php';
 $conn = mysqli_connect($host, $user, $pass, $dbname) or die("连接失败：$conn->connect_error");
-$expre =time()-60;
+$expre =time()-600;
 $query = "SELECT id,order_id,create_time FROM fy_order WHERE pay_status=0 and order_status=0";
 $query_result = mysqli_query($conn, $query);
 if ($query_result->num_rows > 0) {

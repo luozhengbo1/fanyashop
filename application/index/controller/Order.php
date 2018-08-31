@@ -294,12 +294,12 @@ Class Order extends Mustlogin
                         $totalLotteryAll+=1;
                     }
                     if ($checkLotteryLog['lottery_info']['expire_type'] == 1) {
-                        if ($time > ($checkLotteryLog['lottery_info']['expire_time'] * 60 * 24 * 60 + $checkLotteryLog['pay_time'])) {
-                            return ajax_return('', '使用的券不在使用期限内', '500');
+                        if ($time > ($checkLotteryLog['lottery_info']['expire_time'] * 60 * 24 * 60 + $checkLotteryLog['addtime'])) {
+                            return ajax_return('', '使用的券不在使用期限内2', '500');
                         }
                     } else {
                         if ($time < $checkLotteryLog['lottery_info']['expire_start_date'] || $time > $checkLotteryLog['lottery_info']['expire_end_date']) {
-                            return ajax_return('', '使用的券不在使用期限内', '500');
+                            return ajax_return('', '使用的券不在使用期限内3', '500');
                         }
                     }
                 }
@@ -455,7 +455,7 @@ Class Order extends Mustlogin
             $input->SetOut_trade_no($orderId);
             $input->SetTotal_fee($orderAll['total_price'] * 100);
             $input->SetTime_start(date("YmdHis"));
-            $input->SetTime_expire(date("YmdHis", time() + 60));
+            $input->SetTime_expire(date("YmdHis", time() + 600));
             $input->SetGoods_tag("");
             #微信支付回调变更
             $notifyUrl = $wxConfig->GetNotifyUrl("http://" . $_SERVER['HTTP_HOST'] . "/index.php/index/wechatpay/notify");
@@ -588,7 +588,7 @@ Class Order extends Mustlogin
                 return json($backData);
             }
             #超过半小时过期
-            if ($orderData['create_time'] + 60 < time()) {
+            if ($orderData['create_time'] + 600 < time()) {
                 return ajax_return_error('该订单已经失效');
             }
             if ($orderData['pay_status'] == 1 || $orderData['order_status'] == 1) {
@@ -602,11 +602,12 @@ Class Order extends Mustlogin
                 $checkLotteryLog = Db::name('lottery_log')->where(['id' => $v['lottery_log_id']])->find();
                 #检测这张券是否已经使用
                 $checkLotteryLog['lottery_info'] = Db::name('lottery')->where(['id'=>$v['lottery_id']])->find();
+
                 if($checkLotteryLog['lottery_num']<=0){
-                    return ajax_return('', $checkLotteryLog['lottery_info']['name'].'该券已经使用了');
+                    return ajax_return('', $checkLotteryLog['lottery_info']['name'].'该券已经使用了,请重新下单');
                 }
                 if ($checkLotteryLog['lottery_info']['expire_type'] == 1) {
-                    if ($time > ($checkLotteryLog['lottery_info']['expire_time'] * 60 * 24 * 60 + $checkLotteryLog['pay_time'])) {
+                    if ($time > ($checkLotteryLog['lottery_info']['expire_time'] * 60 * 24 * 60 + $checkLotteryLog['addtime'])) {
                         return ajax_return('', '使用的券不在使用期限内', '500');
                     }
                 } else {
@@ -639,7 +640,7 @@ Class Order extends Mustlogin
                 $input->SetOut_trade_no($orderData['order_id']);
                 $input->SetTotal_fee($orderData['total_price'] * 100);
                 $input->SetTime_start(date("YmdHis"));
-                $input->SetTime_expire(date("YmdHis", time() + 60));
+                $input->SetTime_expire(date("YmdHis", time() + 600));
                 $input->SetGoods_tag("");
                 #微信支付回调变更
                 $notifyUrl = $wxConfig->GetNotifyUrl("http://" . $_SERVER['HTTP_HOST'] . "/index.php/index/wechatpay/notify1");
@@ -933,7 +934,6 @@ Class Order extends Mustlogin
             if (($time - $orderGoods['get_goods_time'] > $day7) && $data['after_sale_type'] == 1) {#大于7天不可以退换货
                 return ajax_return('', '超过七天不可以退换货，请联系卖家', '500');
             }
-
             $update = [];
             $update['after_sale_type'] = $data['after_sale_type'];
             $update['after_sale_reson'] = $data['after_sale_reson'];
@@ -1051,54 +1051,54 @@ Class Order extends Mustlogin
     }
 
     #取消售后
-    public function cancleAfterSale()
-    {
-        if ($this->request->isAjax()) {
-            $data = $this->request->post();
-//                if(!$data['id'] ){
-//                    return $this->error('缺少参数id');
+//    public function cancleAfterSale()
+//    {
+//        if ($this->request->isAjax()) {
+//            $data = $this->request->post();
+////                if(!$data['id'] ){
+////                    return $this->error('缺少参数id');
+////                }
+////                if(!$data['ogid'] ){
+////                    return $this->error('缺少参数ogid');
+////                }
+//            $afterSale = Db::name('after_sale_following')
+//                ->where(['order_id' => $data['order_id'], 'goods_id' => $data['goods_id'], 'openid' => $this->userInfo['openid']])
+//                ->find();
+//            if($afterSale['yes_or_no']==1){
+//                return ajax_return('商家已经同意不可以取消');
+//            }
+//            $orderGoods = Db::name('order_goods')->where(['order_id' => $data['order_id'], 'goods_id' => $data['goods_id'], 'sku_id' => $data['sku_id']])->find();
+//            if ($afterSale['after_sale_type'] == 3) {#
+//                $goodsAttribute = Db::name('goods_attribute')->field('price')->where(['id' => $orderGoods['sku_id']])->find();
+//                $returnMoney = $orderGoods['goods_num'] * $goodsAttribute['price'];
+//                #如果商品包邮，退款时减去邮费
+//                if ($orderGoods['goods_detail']['free_type'] == 0) {
+//                    $returnMoney -= $orderGoods['goods_num'] * $orderGoods['goods_detail']['postage'];
 //                }
-//                if(!$data['ogid'] ){
-//                    return $this->error('缺少参数ogid');
-//                }
-            $afterSale = Db::name('after_sale_following')
-                ->where(['order_id' => $data['order_id'], 'goods_id' => $data['goods_id'], 'openid' => $this->userInfo['openid']])
-                ->find();
-            if($afterSale['yes_or_no']==1){
-                return ajax_return('商家已经同意不可以取消');
-            }
-            $orderGoods = Db::name('order_goods')->where(['order_id' => $data['order_id'], 'goods_id' => $data['goods_id'], 'sku_id' => $data['sku_id']])->find();
-            if ($afterSale['after_sale_type'] == 3) {#
-                $goodsAttribute = Db::name('goods_attribute')->field('price')->where(['id' => $orderGoods['sku_id']])->find();
-                $returnMoney = $orderGoods['goods_num'] * $goodsAttribute['price'];
-                #如果商品包邮，退款时减去邮费
-                if ($orderGoods['goods_detail']['free_type'] == 0) {
-                    $returnMoney -= $orderGoods['goods_num'] * $orderGoods['goods_detail']['postage'];
-                }
-                if ($returnMoney < 0) $returnMoney = 0.01;
-                $returnMoney = $goodsAttribute['price'];
-                $res1 = Db::name('order_goods')->where([
-                    'order_id' => $data['order_id'],
-                    'id' => $data['id'],
-                ])->update(['is_return' => 0, 'return_price' => 0, 'is_send' => 6, 'after_sale_is' => 0]); # 0   6 完成 0 未提交
-                $ordertmp = Db::name('order')->where([
-                    'order_id' => $orderGoods['order_id']])->find();
-                #退款价
-                $order = Db::name('order')->where('order_id', $orderGoods['order_id'])->find();
-                $update = [];
-                $update = ['return_price_all' => $ordertmp['return_price_all'] - $goodsAttribute['price']];#减去退款价
-                $res = Db::name('order')
-                    ->where('order_id', $data['order_id'])->update($update);
-                #总退款加上0未支付1已支付2待评价，3待回复，5部分退款，6全部退款，7取消订单，8订单完成
-
-            }
-            Db::name('order_goods')
-                ->where(['order_id' => $data['order_id'], 'goods_id' => $data['goods_id'], 'sku_id' => $data['sku_id'], 'openid' => $this->userInfo['openid']])
-                ->update(['after_sale_is' => 0, 'after_handle_is' => 0]);
-            return ajax_return('', '取消成功', '200');
-        }
-
-    }
+//                if ($returnMoney < 0) $returnMoney = 0.01;
+//                $returnMoney = $goodsAttribute['price'];
+//                $res1 = Db::name('order_goods')->where([
+//                    'order_id' => $data['order_id'],
+//                    'id' => $data['id'],
+//                ])->update(['is_return' => 0, 'return_price' => 0, 'is_send' => 6, 'after_sale_is' => 0]); # 0   6 完成 0 未提交
+//                $ordertmp = Db::name('order')->where([
+//                    'order_id' => $orderGoods['order_id']])->find();
+//                #退款价
+//                $order = Db::name('order')->where('order_id', $orderGoods['order_id'])->find();
+//                $update = [];
+//                $update = ['return_price_all' => $ordertmp['return_price_all'] - $goodsAttribute['price']];#减去退款价
+//                $res = Db::name('order')
+//                    ->where('order_id', $data['order_id'])->update($update);
+//                #总退款加上0未支付1已支付2待评价，3待回复，5部分退款，6全部退款，7取消订单，8订单完成
+//
+//            }
+//            Db::name('order_goods')
+//                ->where(['order_id' => $data['order_id'], 'goods_id' => $data['goods_id'], 'sku_id' => $data['sku_id'], 'openid' => $this->userInfo['openid']])
+//                ->update(['after_sale_is' => 0, 'after_handle_is' => 0]);
+//            return ajax_return('', '取消成功', '200');
+//        }
+//
+//    }
 
     #商品售后
     public function logistics()
