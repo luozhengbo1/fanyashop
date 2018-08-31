@@ -76,6 +76,7 @@ Class Order extends Mustlogin
             foreach ($orderList as $k => $v) {
 
                 $orderList[$k]['goods_detail'] = json_decode($v['goods_detail'], true);
+                $orderList[$k]['lottery_detail'] = json_decode($v['lottery_detail'], true);
             }
             $orderList = array_values($this->array_group_by($orderList, 'order_id'));
             return ajax_return($orderList, 'ok', '200');
@@ -118,6 +119,7 @@ Class Order extends Mustlogin
                         "fy_lottery.goods_id" => ['in', $arrGoodsId],
                         'fy_lottery.status' => 1,
                         'fy_lottery.isdelete' => 0,
+                        'fy_lottery_log.lottery_num' =>['>',0],
                         //'fy_lottery.expire_start_date' =>['<', $time],
                         //'fy_lottery.expire_end_date' =>['>', $time],
                         'fy_lottery_log.openid' => $this->userInfo['openid'],
@@ -1051,54 +1053,54 @@ Class Order extends Mustlogin
     }
 
     #取消售后
-//    public function cancleAfterSale()
-//    {
-//        if ($this->request->isAjax()) {
-//            $data = $this->request->post();
-////                if(!$data['id'] ){
-////                    return $this->error('缺少参数id');
-////                }
-////                if(!$data['ogid'] ){
-////                    return $this->error('缺少参数ogid');
-////                }
-//            $afterSale = Db::name('after_sale_following')
-//                ->where(['order_id' => $data['order_id'], 'goods_id' => $data['goods_id'], 'openid' => $this->userInfo['openid']])
-//                ->find();
-//            if($afterSale['yes_or_no']==1){
-//                return ajax_return('商家已经同意不可以取消');
-//            }
-//            $orderGoods = Db::name('order_goods')->where(['order_id' => $data['order_id'], 'goods_id' => $data['goods_id'], 'sku_id' => $data['sku_id']])->find();
-//            if ($afterSale['after_sale_type'] == 3) {#
-//                $goodsAttribute = Db::name('goods_attribute')->field('price')->where(['id' => $orderGoods['sku_id']])->find();
-//                $returnMoney = $orderGoods['goods_num'] * $goodsAttribute['price'];
-//                #如果商品包邮，退款时减去邮费
-//                if ($orderGoods['goods_detail']['free_type'] == 0) {
-//                    $returnMoney -= $orderGoods['goods_num'] * $orderGoods['goods_detail']['postage'];
+    public function cancleAfterSale()
+    {
+        if ($this->request->isAjax()) {
+            $data = $this->request->post();
+//                if(!$data['id'] ){
+//                    return $this->error('缺少参数id');
 //                }
-//                if ($returnMoney < 0) $returnMoney = 0.01;
-//                $returnMoney = $goodsAttribute['price'];
-//                $res1 = Db::name('order_goods')->where([
-//                    'order_id' => $data['order_id'],
-//                    'id' => $data['id'],
-//                ])->update(['is_return' => 0, 'return_price' => 0, 'is_send' => 6, 'after_sale_is' => 0]); # 0   6 完成 0 未提交
-//                $ordertmp = Db::name('order')->where([
-//                    'order_id' => $orderGoods['order_id']])->find();
-//                #退款价
-//                $order = Db::name('order')->where('order_id', $orderGoods['order_id'])->find();
-//                $update = [];
-//                $update = ['return_price_all' => $ordertmp['return_price_all'] - $goodsAttribute['price']];#减去退款价
-//                $res = Db::name('order')
-//                    ->where('order_id', $data['order_id'])->update($update);
-//                #总退款加上0未支付1已支付2待评价，3待回复，5部分退款，6全部退款，7取消订单，8订单完成
-//
-//            }
-//            Db::name('order_goods')
-//                ->where(['order_id' => $data['order_id'], 'goods_id' => $data['goods_id'], 'sku_id' => $data['sku_id'], 'openid' => $this->userInfo['openid']])
-//                ->update(['after_sale_is' => 0, 'after_handle_is' => 0]);
-//            return ajax_return('', '取消成功', '200');
-//        }
-//
-//    }
+//                if(!$data['ogid'] ){
+//                    return $this->error('缺少参数ogid');
+//                }
+            $afterSale = Db::name('after_sale_following')
+                ->where(['order_id' => $data['order_id'], 'goods_id' => $data['goods_id'], 'openid' => $this->userInfo['openid']])
+                ->find();
+            if($afterSale['yes_or_no']==1){
+                return ajax_return('商家已经同意不可以取消');
+            }
+            $orderGoods = Db::name('order_goods')->where(['order_id' => $data['order_id'], 'goods_id' => $data['goods_id'], 'sku_id' => $data['sku_id']])->find();
+            if ($afterSale['after_sale_type'] == 3) {#
+                $goodsAttribute = Db::name('goods_attribute')->field('price')->where(['id' => $orderGoods['sku_id']])->find();
+                $returnMoney = $orderGoods['goods_num'] * $goodsAttribute['price'];
+                #如果商品包邮，退款时减去邮费
+                if ($orderGoods['goods_detail']['free_type'] == 0) {
+                    $returnMoney -= $orderGoods['goods_num'] * $orderGoods['goods_detail']['postage'];
+                }
+                if ($returnMoney < 0) $returnMoney = 0.01;
+                $returnMoney = $goodsAttribute['price'];
+                $res1 = Db::name('order_goods')->where([
+                    'order_id' => $data['order_id'],
+                    'id' => $data['id'],
+                ])->update(['is_return' => 0, 'return_price' => 0, 'is_send' => 6, 'after_sale_is' => 0]); # 0   6 完成 0 未提交
+                $ordertmp = Db::name('order')->where([
+                    'order_id' => $orderGoods['order_id']])->find();
+                #退款价
+                $order = Db::name('order')->where('order_id', $orderGoods['order_id'])->find();
+                $update = [];
+                $update = ['return_price_all' => $ordertmp['return_price_all'] - $goodsAttribute['price']];#减去退款价
+                $res = Db::name('order')
+                    ->where('order_id', $data['order_id'])->update($update);
+                #总退款加上0未支付1已支付2待评价，3待回复，5部分退款，6全部退款，7取消订单，8订单完成
+
+            }
+            Db::name('order_goods')
+                ->where(['order_id' => $data['order_id'], 'goods_id' => $data['goods_id'], 'sku_id' => $data['sku_id'], 'openid' => $this->userInfo['openid']])
+                ->update(['after_sale_is' => 0, 'after_handle_is' => 0]);
+            return ajax_return('', '取消成功', '200');
+        }
+
+    }
 
     #商品售后
     public function logistics()

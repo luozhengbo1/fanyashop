@@ -265,7 +265,7 @@
         totalPrice = totalPrice.toFixed(2);
         if(totalPrice>0 && totalPoint>0) html ='￥'+totalPrice.toFixed(2)+'+'+totalPoint+'积分';
         else{
-            if(totalPrice>0)   html +='￥'+totalPrice.toFixed(2);
+            if(totalPrice>0)   html +='￥'+totalPrice;
             if (totalPoint>0) html +=totalPoint+'积分'
             if(!(totalPrice>0) && !(totalPoint>0)) html +=0;
         }
