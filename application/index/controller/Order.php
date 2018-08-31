@@ -506,7 +506,8 @@ Class Order extends Mustlogin
                         $cxContext = stream_context_create($opts);
                         $url ="http://".$_SERVER['HTTP_HOST'].'/index.php/index/wechatpay/notify';
                         $sFile = file_get_contents($url, false, $cxContext);
-//                        dump($sFile);
+                        $backData = array("msg" => "购买", 'code' => 200, 'redirect' => url("order/index", array('param' => 'all')));
+                        die(json_encode($backData));
                     }else{
                         $jsApiParameters = base64_encode($jsApiParameters);
                         $backData = array("msg" => "呼起支付", 'code' => 200, 'redirect' => url("pay/index") . "?js_api_parameters={$jsApiParameters}&order_id={$orderId}");
