@@ -489,7 +489,6 @@ Class Order extends Mustlogin
                     }
                 }
                 if ($type == 0 || $type == 2) { #钱 和积分加钱
-                    echo 345;
                     if($orderAll['total_price']==0){
                         $data = array("order_id" => $orderAll['order_id'],"openid" => $this->userInfo['openid'],'flag'=>1);
                         $data = http_build_query($data);
