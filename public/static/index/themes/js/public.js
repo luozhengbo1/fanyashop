@@ -561,8 +561,8 @@ function masonryShow() {
 
    //setTimeout(function () {
         $('.grid-item-image').height($('.grid-item-image').outerWidth());
-        if($('#searchIcon').size()>0){
-            $('#searchIcon').attr('onclick','searchGoods()')
+        if($('.searchIcon').size()>0){
+            $('.searchIcon').attr('onclick','searchGoods()')
         }
     imageLazy();
     //},500)
@@ -600,7 +600,7 @@ function tagParse(tag){
 function backTime(){
     //28分株
     $('.sulfTime').each(function (index, ele) {
-        var endTime = (parseInt($(ele).attr('data-createtime')) +60);
+        var endTime = (parseInt($(ele).attr('data-createtime')) +10*60);
         var currentTime = parseInt(new Date().getTime()/1000);
         console.log(endTime,currentTime);
         setInterval(function () {

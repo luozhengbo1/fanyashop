@@ -97,6 +97,7 @@
     </div>
 </section>
 <script>
+    $('.header-title a').attr('href',"{:url('customer/customer',['param'=>'customer'])}")
     var nav_param= "{$param}";
     var url = {
         orderList:"{:url('index/order/getOrderListApi')}",
