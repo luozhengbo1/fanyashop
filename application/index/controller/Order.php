@@ -625,22 +625,25 @@ Class Order extends Mustlogin
             $orderGoods = Db::name('order_goods')->where(['order_id'=>$data['id']])->select();
             foreach ($orderGoods as $v){
                 #查询使用优惠券是否过期
-                $checkLotteryLog = Db::name('lottery_log')->where(['id' => $v['lottery_log_id']])->find();
-                #检测这张券是否已经使用
-                $checkLotteryLog['lottery_info'] = Db::name('lottery')->where(['id'=>$v['lottery_id']])->find();
+                if($v['lottery_log_id'] &&  $v['lottery_id']){
+                    $checkLotteryLog = Db::name('lottery_log')->where(['id' => $v['lottery_log_id']])->find();
+                    #检测这张券是否已经使用
+                    $checkLotteryLog['lottery_info'] = Db::name('lottery')->where(['id'=>$v['lottery_id']])->find();
 
-                if($checkLotteryLog['lottery_num']<=0){
-                    return ajax_return('', $checkLotteryLog['lottery_info']['name'].'该券已经使用了,请重新下单');
-                }
-                if ($checkLotteryLog['lottery_info']['expire_type'] == 1) {
-                    if ($time > ($checkLotteryLog['lottery_info']['expire_time'] * 60 * 24 * 60 + $checkLotteryLog['addtime'])) {
-                        return ajax_return('', '使用的券不在使用期限内', '500');
+                    if($checkLotteryLog['lottery_num']<=0){
+                        return ajax_return('', $checkLotteryLog['lottery_info']['name'].'该券已经使用了,请重新下单');
                     }
-                } else {
-                    if ($time < $checkLotteryLog['lottery_info']['expire_start_date'] || $time > $checkLotteryLog['lottery_info']['expire_end_date']) {
-                        return ajax_return('', '使用的券不在使用期限内', '500');
+                    if ($checkLotteryLog['lottery_info']['expire_type'] == 1) {
+                        if ($time > ($checkLotteryLog['lottery_info']['expire_time'] * 60 * 24 * 60 + $checkLotteryLog['addtime'])) {
+                            return ajax_return('', '使用的券不在使用期限内', '500');
+                        }
+                    } else {
+                        if ($time < $checkLotteryLog['lottery_info']['expire_start_date'] || $time > $checkLotteryLog['lottery_info']['expire_end_date']) {
+                            return ajax_return('', '使用的券不在使用期限内', '500');
+                        }
                     }
                 }
+
             }
             if ($orderData['js_api_parameters'] && $orderData['prepay_id']) {
                 $jsApiParameters = base64_encode($orderData['js_api_parameters']);
