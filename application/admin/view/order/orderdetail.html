@@ -106,8 +106,11 @@
             <form>
                 <div class="mt20 mb20">
                     <label class="ml20">快递名称:</label>
-                    <input type="text" placeholder="快递名称" name="logistics_name" value="{$vo['logistics_name']??''}"
-                           class="form_control w120 lh30 h30">
+                    <select name="logistics_name" class="select form_control w120 lh30 h30" style="width: 200px;" >
+                        {volist name="kdList" id="voKd"}
+                        <option value="{$voKd['value']}" <?php if( isset($vo['logistics_name']) && $voKd['value']==$vo['logistics_name'] ){ echo  "selected"; } ?> >{$voKd['value']}</option>
+                        {/volist}
+                    </select>
                     <label>快递单号:</label>
                     <input type="text" placeholder="快递单号" name="logistics_number" value="{$vo['logistics_number']??''}"
                            class="form_control w120 lh30 h30">

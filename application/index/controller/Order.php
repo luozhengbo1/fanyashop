@@ -510,6 +510,8 @@ Class Order extends Mustlogin
                     }else{
                         $jsApiParameters = base64_encode($jsApiParameters);
                         $backData = array("msg" => "呼起支付", 'code' => 200, 'redirect' => url("pay/index") . "?js_api_parameters={$jsApiParameters}&order_id={$orderId}");
+//                        dump($backData);
+//                        die;
                         die(json_encode($backData));
                     }
 
@@ -558,7 +560,7 @@ Class Order extends Mustlogin
                     $goods_info = ['total_price' => $payPoint, 'goods_data' => $goodsname];
                     $order_message->payMessage('pay_success', $user_info, $goods_info, '');
                     $backData = array("msg" => "积分扣取成功", 'code' => 200, 'redirect' => url("order/index", array('param' => 'all')));
-//                    dump($orderGoods);die;
+//                    dump($backData);die;
                     die(json_encode($backData));
                 }
 
@@ -645,6 +647,7 @@ Class Order extends Mustlogin
                 }
 
             }
+
             if ($orderData['js_api_parameters'] && $orderData['prepay_id']) {
                 $jsApiParameters = base64_encode($orderData['js_api_parameters']);
                 $backData = array(

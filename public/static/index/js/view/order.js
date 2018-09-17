@@ -81,12 +81,13 @@ function orderTrack(order_id,goods_id,sku_id) {
 
 //物流单号
 function showWul(name,num) {
-    var msg = '<p class="mt10 f14 tl">物流名称：'+name+'</p>'
-    msg += '<p class="mt10 f14 tl">物流单号：'+num+'</p>'
-    layer.open({
-        content:msg
-        ,btn: '确定'
-    });
+    window.location.href=urlConnect(url.logisticsTrack,{name:name,num:num})
+    // var msg = '<p class="mt10 f14 tl">物流名称：'+name+'</p>'
+    // msg += '<p class="mt10 f14 tl">物流单号：'+num+'</p>'
+    // layer.open({
+    //     content:msg
+    //     ,btn: '确定'
+    // });
 }
 function pageReload() {
     setTimeout(function () {
@@ -139,7 +140,8 @@ function orderBtnHtml(json){
             break;
     }
     if( json.is_send!=constant.send.returnMoney && json.is_send!=constant.send.nosend ){
-        html +='    <button class="layui-btn layui-btn-primary layui-btn-xs layui-btn-radius" onclick="showWul(\''+json.logistics_name+'\',\''+json.logistics_number+'\')">物流单号</button>'
+        // html +='    <button class="layui-btn layui-btn-primary layui-btn-xs layui-btn-radius" onclick="showWul(\''+json.logistics_name+'\',\''+json.logistics_number+'\')">物流单号</button>'
+        html +='    <button class="layui-btn layui-btn-primary layui-btn-xs layui-btn-radius" onclick="showWul(\''+json.logistics_name+'\',\''+json.logistics_number+'\')">物流信息</button>'
     }
     return html;
 }

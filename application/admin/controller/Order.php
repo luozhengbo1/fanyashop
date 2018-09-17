@@ -163,6 +163,8 @@ class Order extends Controller
         $address = Db::name('customer_address')
             ->where(['id' => $orderDetail[0]['address_id']])
             ->find();
+        $kdList = Db::name('kd')->select();
+        $this->view->assign('kdList', $kdList);
         $this->view->assign('address', $address);
         $this->view->assign('orderDetail', $orderDetail);
         return $this->view->fetch('orderdetail');
