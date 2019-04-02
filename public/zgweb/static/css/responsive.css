@@ -1,0 +1,347 @@
+﻿@media only screen and ( max-width: 1680px) {
+	.goYx p img{height: 35px;width: auto;}
+	.goYx h2{font-size: 56px;}
+}
+@media only screen and ( max-width: 1600px) {
+	.goYx p img{height: 32px;}
+	.goYx h2{font-size: 50px;}
+	footer{bottom: -182px;}
+    .quanmei-works .sub-slides li .contsd .neis h3 img{ -moz-transform: scale(0.8);}
+    	 .quanmei-works .sub-slides li .contsd .neis .textsz{ zoom: 0.8;}
+	.quanmei-newsList .lft-news .topYear span{ right: 6%;}
+	.quanmei-newsList .lft-news .topYear p{ width: 72%;}
+}
+@media only screen and ( max-width: 1440px) {
+   .index-back-box{ height: 78px;}
+   .index-back-box .sub-arrows{ line-height: 78px;}
+   .index-back-box .sub-arrows i.icom:after{ top: 38px;}
+   .quanmei-navBar{ width: 125px;}
+   .quanmei-fixed-menu .sub-menu-phone{ padding:80px 30px 0 30px;}
+   .quanmei-newsList .centerbox{ width: 75%;}
+	.quanmei-newsList .lft-news .topYear span{ font-size: 18px; right: 6%;}
+	.quanmei-newsList .lft-news .topYear p{ font-size: 30px; width: 72%;}
+   .quanmei-newsList .lft-news .topYear{ transform: scale(0.8); -webkit-transform: scale(0.8); -moz-transform: scale(0.8);}
+   .quanmei-about .waperSlide{ zoom: 0.8; -moz-transform:translateY(0px) scale(0.8);}
+   .quanmei-about .waperSlide.active{-moz-transform:translateY(0px) scale(0.8);}
+   
+   .quanmei-contact .contentbox{ width: calc(80% - 40px); height: 400px;}
+	.quanmei-contact .sub-conText .lower_box .fl strong{ font-size: 36px;}
+	.quanmei-contact .sub-conText .lower_box .fl p{ font-size: 14px;}
+	.quanmei-contact .sub-conText .lower_box .fl i{ font-size: 23px;}
+	.quanmei-contact .sub-conText .lower_box .lines span{ width:14%;}
+   .quanmei-contact .sub-conText h2{ font-size: 36px;}
+   .quanmei-contact .tel .QQuser{ padding-left: 0;}
+   .quanmei-contact .contentbox:before{ top: -5%;}
+    footer .box:after { width: 3%; left: 32px;}
+	footer .box { width: 75%}
+	footer .address .Content span {width: auto;	margin-left: 20px; vertical-align: top}
+	footer .address .Content { white-space: nowrap; display: inline-block; text-align: left; font-size: 0; vertical-align: middle; float: right; vertical-align: middle; line-height: 1}
+	footer .address .left { display: inline-block; float: left; width:30%;}
+   
+	footer .address { position: relative}
+    footer .address .left img { width: 100%}
+    
+    .quanmei-works .sub-slides li .contsd .neis .imGs{ width:230px; margin-right: auto; margin-right: 100px\0; width: auto\0; zoom: 0.6\0;}
+    .quanmei-works .sub-slides li .contsd .neis .imGs img{ width: 100%; height: auto; width: auto\0;}
+    .quanmei-works .sub-slides li .contsd .neis .textsz{ zoom: 0.6\0;}
+    .quanmei-works .sub-slides li .contsd .neis h4 img,
+    .quanmei-works .sub-slides li .contsd .neis h3 img{ -moz-transform: scale(0.6);}
+	
+	.quanmei-works .sub-slides li .contsd .neis h3,.quanmei-works .sub-slides li .contsd .neis h4{ font-size: 40px;}
+    
+    .quanmei-works .words-slide{ left: 13%;}
+    .quanmei-works .words-slide ul li{ margin-bottom: 20px;}
+    .scrollBar .banner ul li .imgTimes>article .banTops{ zoom: 0.7; -moz-transform: scale(0.7);}
+	.about_box3 p{ font-size: 50px;}
+    
+    @media screen and (-webkit-min-device-pixel-ratio:0){
+    	 .quanmei-works .sub-slides li .contsd .neis .imGs img{ width: auto; height: auto;}
+    	 .quanmei-works .sub-slides li .contsd .neis .imGs{ width: auto; margin-right: 100px;}
+    	 .quanmei-works .sub-slides li .contsd .neis .imGs,
+    	 .quanmei-works .sub-slides li .contsd .neis .textsz{ zoom: 0.6;}
+		
+    }
+    
+    .goYx{padding: 30px;width: calc(80% - 40px);}
+    .goYx h2{font-size: 48px;line-height: 58px;}
+    .goYx p img{height: 30px;}
+    footer{bottom: -148px;}
+	.about_box1 .zt_1{ left:12%;}
+	.myDiv1, .myDiv, .actice .sub-title, .contact .myDiv2{
+		width: 78%;
+	}
+	.case_list_box .box ul li .img{ height: 260px;}
+   
+}
+@media only screen and ( max-width: 1280px) {
+   .goYx h2{font-size: 44px;line-height: 54px;}
+    .goYx p img{height: 28px;}
+	footer{bottom: -142px;}
+	.quanmei-contact .sub-conText .lower_box .fr a{ margin-left: 10px;}
+	.quanmei-contact .sub-conText .lower_box .fr img{ display: none;}
+}
+
+@media only screen and ( max-width: 1200px) {
+  .quanmei-newsList .lft-news{ zoom: 0.8; -moz-transform: scale(0.8);}
+   footer .address .left{ width: 24%;}
+   footer .box:after{ display: none;}
+   
+	.topMenu a{ margin-left: 20px;}
+	.about_box1 .box{ width:90%; left: 5%;}
+	.w1200,.w1300{ width:95%;}
+	.case_banner .fl{ width:100%; left: 0; padding: 0; text-align: center;}
+	.case_banner .fl i{ width:50px; left: 10%;}
+	.case_list_box .box ul li .info{ padding:0 10px;}
+	.case_list_box .box ul li .info .fl{ width:75%;}
+	.case_info_banner .fl strong{ font-size: 50px;}
+	.contact_box .lower_box .fl,.contact_box .lower_box .fr,{ width:50%;}
+	.news_list_box ul li{ width:48%;}
+	
+	.case_list_box .box ul li .img{ height: 200px;}
+}
+
+@media only screen and ( max-width: 992px) {
+ footer .address .left{ width: auto; float: none;}
+ footer .address .Content{ float: none; white-space: inherit;}
+ .goYx{display: none;height: 0;overflow: hidden;}
+	footer .address{ padding: 0;}
+	.case_list_box .box ul li .img{ height: auto;}
+}
+
+@media only screen and ( max-width: 768px) {
+	header{ display: none;}
+	.scrollBar .banner ul li .imgTimes>article{ display: none;}
+	.quanmei-works .words-slide{ display: none;}
+	.quanmei-navBar{
+		transform: translateX(0px);
+		-webkit-transform: translateX(0px);
+		-moz-transform: translateX(0px);
+		
+		top: 0; margin-top: auto; width: 100%; height: 60px; background-color: #fff;
+	}
+	.quanmei-navBar .bar-logo{ float: left; position: absolute; right: auto; top: 19px; left: 62px; }
+	.quanmei-navBar .bar-menu{ float: left; position: absolute; right: auto; top: 24px; left: 42px;}
+	.quanmei-navBar .bar-menu i{ width:25px;}
+	.quanmei-navBar .bar-logo .menu-svg{ display: none;}
+	.quanmei-navBar .bar-logo .menu-svg-phone{ display: block; width: 130px; height: 35px; margin-top: -5px; background: url(../images/logo2.png) no-repeat left; background-size: contain;}
+	
+	.quanmei-fixed-menu ul li.index-hrefs aside{ display: none;} 
+	.quanmei-fixed-menu .sub-menu-phone{ padding: 40px 30px 0 0; width: 330px !important;}
+	.quanmei-fixed-menu .sub-menu-phone ul{ width: 338px;}
+	.quanmei-fixed-menu .quanmei-yx-mads{ right: auto; left: 29px; width: 270px;}
+	.quanmei-fixed-menu .sub-menu-phone ul li a{ height: 42px; line-height: 42px; float: left; margin-left: 30px; font-weight: 300; width: 270px;}
+	.quanmei-fixed-menu .sub-menu-phone ul li a font{ font-size: 18px;}
+	.quanmei-fixed-menu .sub-menu-phone ul li a small{ font-size: 24px; line-height: 57px; font-weight: 300; font-family: 'ZurichBT-Light';}
+	.myTop{ display: none;}
+	.index-waper-box{ display: none;}
+	.mainTop{ height: 300px !important; top: 60px;}
+	.quanmei-body-box{ margin-top: 40px;}
+	.quanmei-works{ height: 320px !important;}
+	.quanmei-collection .collbgs{ height: 206px !important;}
+	.quanmei-collection{ height: auto !important;}
+	.quanmei-about{ height: 350px !important;}
+	
+	.quanmei-brand .IndexList{ width: 100%;
+		transform: translateY(0px);
+		-webkit-transform: translateY(0px);
+		-moz-transform: translateY(0px);
+		opacity: 1;
+	}
+	.quanmei-brand .IndexList ul{ padding-top: 15px;}
+	.quanmei-brand .bom-line{ display: none;}
+	.quanmei-brand .quanmei-waperTit{ width: 90%; margin: 0 auto;}
+	.quanmei-brand .quanmei-waperTit h2 img{ width: 90%;}
+	.quanmei-works .sub-slides li .contsd{ padding-right: 0;}
+	.quanmei-works .sub-slides li .contsd .neis .imGs{ display: none;}
+	.quanmei-works .sub-slides li .contsd .neis .textsz,.quanmei-works .sub-slides li:nth-child(3) .contsd .neis .textsz{ width: 100%;}
+	.quanmei-works .sub-slides li:nth-child(2) .contsd .neis .textsz,.quanmei-works .sub-slides li:nth-child(2) .contsd .neis .imGs{ width:100%; text-align: center;}
+	.quanmei-works .sub-slides li .contsd .neis h4 img{ width: 90%;}
+	.quanmei-works .sub-slides li .contsd .neis h3 img{ width: 80%;}
+	.quanmei-works .sub-slides li .contsd .neis p{ margin: 0 auto 20px; width: 90%; padding-left: 0;}
+	.quanmei-works .sub-slides li .contsd .neis p font{ width: 100%;}
+	.quanmei-waper-tits{ zoom: 0.6;}
+	.quanmei-collection .slider-remote{ display: none;}
+	.quanmei-collection .quanmei-collumns{ position: relative; height: auto; width: 90%; margin: 0 5%; margin-top: -90px; background-color: #fff; top: 15%;
+		transform: translateY(0px);
+		-webkit-transform: translateY(0px);
+		-moz-transform: translateY(0px);
+		opacity: 1;
+	}
+	.quanmei-collection .slider-waper ul li{ position: static; left: auto; height: auto; opacity: 1; margin-bottom: 10px; visibility: visible;width: 100%;
+    height: 288px;}
+	.quanmei-collection .slider-waper ul li>article{ width: 100% !important; height: 100% !important;}
+	.quanmei-newsList{ padding: 25px 0;}
+	.quanmei-newsList .centerbox{ width: 90%; padding-top: 75px;}
+	.quanmei-newsList .lft-news{ float: none; width: 100%;
+		transform: translateY(0px);
+		-webkit-transform: translateY(0px);
+		-moz-transform: translateY(0px);
+		opacity: 1;
+	}
+	
+	.quanmei-newsList .bomtext{ margin-top: 0; display: none;}
+	.quanmei-newsList .rit-news{ float: none; width: 100%; margin-top: 0;}
+	.quanmei-newsList .rit-news article{ padding: 0px; margin-top: 15px;
+		transform: translateX(0px);
+		-webkit-transform: translateX(0px);
+		-moz-transform: translateX(0px);
+		opacity: 1;
+	}
+	
+	.quanmei-newsList .rit-news article h3{ margin: 10px 0; }
+	.quanmei-newsList .rit-news article p{ margin: auto;}
+
+	.quanmei-about .example{ width:100%; margin: auto; left: 0;}
+	.quanmei-about .example span{ font-size: 20px; padding-top:0;}
+	.quanmei-about .example li{ width:50%;}
+	.quanmei-about .example li img{ max-width: 80%;}
+	.quanmei-about .waperSlide{ width: 90%; margin-left: -45%;
+		transform: translateY(0px);
+		-webkit-transform: translateY(0px);
+		-moz-transform: translateY(0px);
+		opacity: 1;
+	}
+	.quanmei-about .slide-wrap{ height: 100%;}
+	.quanmei-about .slide-wrap li .imgs img{ width: 100%; height: auto;}
+	.quanmei-about .slide-wrap ul{ position: relative; height: 100%;}
+	.quanmei-about .slide-wrap ul li{ top: 50%; transform: translateY(-50%);}
+	.quanmei-morebox{ display: none;}	
+	.quanmei-contact{ width: 90%; left: 50%; margin-left: -45%;}
+	.quanmei-contact .sub-conts,
+	.quanmei-contact .contentbox{ width: 100%; display: inherit;}	
+	.quanmei-contact .contentbox:after,
+	.quanmei-contact .contentbox:before{ display: none;}	
+	.quanmei-contact .bigbox{ float: none; width: 100%; height: auto;}
+	.quanmei-contact .sub-conText{ float: none; width: 100%; text-align: center;
+		transform: translateX(0px);
+		-webkit-transform: translateX(0px);
+		-moz-transform: translateX(0px);
+		opacity: 1;
+	}
+	
+	.quanmei-contact .bookmarks{ display: none;}
+	.quanmei-contact .sub-conts .different{  width:70%; margin-left: 15%;
+		transform: scale(1.0);
+		-webkit-transform: scale(1.0);
+		-moz-transform: scale(1.0);
+		opacity: 1;
+	}
+	.quanmei-contact .sub-conText .top_box ul{ width:100%; padding-bottom: 9%;}
+	.quanmei-contact .sub-conText .lower_box{ margin: auto;}
+	.quanmei-contact .sub-conText .lower_box .fl,.quanmei-contact .sub-conText .lower_box .fr{ width:100%; margin: auto;}
+	.quanmei-contact .sub-conText .lower_box .fr{ margin-top: 5%;}
+	.quanmei-contact .sub-conText .lower_box .fr a{ float:none; margin: auto; display: inline-block;}
+	.quanmei-contact .sub-conText .lower_box .lines{ display: none;}
+	
+	.quanmei-contact .sub-conts .different.active{ transform:none;}
+	.quanmei-contact .sub-conText{ padding-left: 0%; zoom: 0.7;}
+	.quanmei-contact .tel{ padding-top: 5px;}
+	.quanmei-contact .tel p{ display: none;}
+	.quanmei-contact .countacti{ display: none;}
+	.quanmei-contact .sub-conText h2{ font-size: 25px;}	
+	.quanmei-contact .tel .QQuser{ width: 100%; text-align: center; display: none;}
+	.quanmei-contact .sub-conText h3 img{ margin: 0 auto; }
+	.quanmei-contact .tel .nubgs .sp1{ width: 100%; color: #fff; display: block;}
+	.quanmei-contact .tel .nubgs .sp2{ display: none;}
+	.quanmei-contact .tel .nubgs span i{ font-size: 15px;}	
+	footer{ display: table; padding-bottom: 30px;}
+	footer .friendship{ display: none;}
+	footer .box{ width: 90%; padding-left: 0;}
+	footer .address .Content span{ margin-left: 0;}
+	
+	#video-bgs{ display: none;}
+	.quanmei-about .videobox .videbg{ background: url(../images/mbg1.jpg) no-repeat; background-size: 100% 100%;}
+	
+	.quanmei-waper-tits2.active span, 
+	.quanmei-waper-tits2 small, 
+	.quanmei-waper-tits2 strong{
+		transform: translateX(0px);
+		-webkit-transform: translateX(0px);
+		-moz-transform: translateX(0px);
+		opacity: 1;
+	}
+	.scrollBar .banner ul li video{ display: none;}
+	html{ overflow-x: hidden;}
+	.Tpiaochuan{ display: none !important;}
+	footer{bottom: 0;}
+	.quanmei-brand .quanmei-waperTit h2{ font-size: 22px;}
+	.quanmei-newsList .rit-news .top_box{ width:100%; margin: auto; padding-bottom: 10px;}
+	.quanmei-newsList .rit-news .top_box a,.quanmei-newsList .rit-news .top_box a:first-child{ width:23%; text-align: center; display: inline-block;}
+	.quanmei-newsList .rit-news .top_box i{ display: none;}
+	.quanmei-newsList .rit-news article time{ margin: auto;}
+	.quanmei-newsList .rit-news article time font{ font-size: 12px; padding: 0;}
+	.quanmei-newsList .rit-news article h3 a{ font-size: 16px;}
+	.quanmei-newsList .rit-news article h3 i{ display: none;}
+	.myDiv, .myDiv1, .actice .sub-title{width: 95%;}
+	.qx, .zr, .lb{padding: 30px 0;}
+	.qx .myDiv img{margin-bottom: 20px;}
+	.qxList{padding-top: 10px;}
+	.qxList li, .zr ul li{width: 100%;margin-bottom: 15px;}
+	.about_box1{ height: 600px;}
+	.about_box1 .zt_1{ width:100%; font-size: 33px; padding: 0; left: 0; text-align: center;}
+	.about_box1 .zt_1 i{ display: none;}
+	.about_box1 .zt_2{ font-size: 14px; margin-top: 20px;}
+	.about_box2{ padding: 30px 0 40px;}
+	.about_box2 .box{ width:100%;}
+	.about_box2 .box img,.qx .myDiv img{ height:30px;}
+	.about_box2 .box p{ margin-top: 20px;}
+	.about_box3{ padding: 20px 0 35px;}
+	.about_box3 p{ font-size: 20px; padding: 0; margin-top: 20px;}
+	.about_box3 p i{ display: none;}
+	.case_banner{ height:300px;}
+	.case_banner .fl{ font-size: 30px; top:40%;}
+	.case_banner .fr{ width:100%; right: 0; bottom: 10px;}
+	.case_banner .fr a{ width:25%; margin: auto; text-align: center;}
+	.case_list_box{ padding:2.5%;}
+	.case_list_box .box ul li{ width:100%; margin-top:2.5%; padding-bottom: 2%;}
+	.case_info_banner,.case_info_banner.news{ height:350px;}
+	.case_info_banner .fl,.case_info_banner .fr{ width:100%;}
+	.case_info_banner .fl{ bottom:20%}
+	.case_info_banner .fl strong,.case_info_banner.news .fl strong{ font-size: 30px;}
+	.case_info_banner .fl p{ padding:10px 0 0;}
+	.case_info_banner .fr{ bottom: 15px; text-align: center;}
+	.case_info_banner .fr a{ margin: auto 5px;}
+	.case_info_banner .fl p span{ margin-right: 15px;}
+	.case_info_banner.news .fl{ bottom: 18%;}
+	.case_info_center{ padding:30px 0;}
+	.case_info_center .lower_box{ margin-top: 30px; padding: 10px;}
+	.case_info_center .lower_box .xx,.news_xx{ font-size: 30px; padding: 30px 0;}
+	.case_info_center .dz_box{ padding: 30px 0 0;}
+	.case_info_center .dz_box a{ width:80px; height: 80px; line-height: 133px;}
+	.contact_box{ padding:30px 0;}
+	.contact_box .top_box p{ padding: 0; font-size: 20px;}
+	.contact_box .top_box p i{ display: none;}
+	.contact_box .lower_box{ padding: 0;}
+	.contact_box .lower_box .fl,.contact_box .lower_box .fr{ width:100%;}
+	.contact_box .lower_box span,.contact_box .lower_box p,.contact_box .lower_box .fr p{ margin-top:15px; line-height: 24px;}
+	.news_list_box{ padding:12px 0;}
+	.news_list_box ul li{ width:100%; margin-top: 25px;}
+	.news_list_box ul li p{ padding:10px 0;}
+	.news_list_box ul li span{ margin-right: auto;}
+	.news_list_box ul li span.active{ float:right;}
+	.fanye ul li{ padding:13px 2px;}
+	.fanye ul li a{ padding:6px 15px;}
+	.quanmei-fixed-menu.active{
+		transform: translateX(0px);
+		-webkit-transform: translateX(0px);
+		-moz-transform: translateX(0px);
+		transition: all .8s cubic-bezier(0.3, 0.8, 0.3, 1) 0.8s;
+		-webkit-transition: all .8s cubic-bezier(0.3, 0.8, 0.3, 1) 0.8s;
+		-moz-transition: all .8s cubic-bezier(0.3, 0.8, 0.3, 1) 0.8s;
+	}
+	.close_btn{ width:50px; height: 50px; line-height: 50px; text-align: center; color: #fff; font-size: 40px; color: #fff; position: absolute; right: 0; top: 0; display: block;}
+	.case_banner .fr a:hover i,.case_banner .fr a.cur i{ height:0;margin-top:0;}
+	.case_banner .fr a:hover,.case_banner .fr a.cur{ color: red;}
+	.quanmei-newsList .lft-news .topYear p{ font-size: 27px;}
+	.qm-tel{ display: block;}
+}
+@media screen and (max-width:630px ) {
+	.quanmei-about {
+	    height: 650px !important;
+	}
+}
+@media screen and (max-width:430px ) {
+	.quanmei-about {
+	    height: 650px !important;
+	}
+}

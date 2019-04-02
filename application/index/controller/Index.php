@@ -88,6 +88,37 @@ class Index extends Mustlogin
         #不同等级得到不同积分。
     }
 
+    public  function smsSend()
+    {
+        if($this->request->isAjax()){
+            $data = $this->request->isPost();
+            $preg = '/^1\d{10}$/';
+            if(!preg_match($preg,$data['mobile']) ){
+                return ajax_return('','手机号不正确','501');
+            }else{
+                require './';
+            }
+        }
+    }
+    //获取用户地理位置信息
+//    public function map()
+//    {
+//        $ak = 'eiLVsU9AWQphSmig6TxWvodPEaQZ9Lwl';
+//        $data = input('get.res/a');
+////        $newData = $this->getgps($data['latitude'],$data['longitude'],true);
+//        $lat = $data['latitude'];
+//        $lng = $data['longitude'];
+////        dump($newData);
+//        $url = "http://api.map.baidu.com/geocoder/v2/?ak={$ak}&location={$lat},{$lng}&output=json&coordtype=gcj02ll";
+////        $url = "http://api.map.baidu.com/geocoder/v2/?ak={$ak}&location={$newData[0]},{$newData[1]}&output=json&coordtype=gcj02ll";
+//        $res = file_get_contents($url);
+//        //百度地图返回的并不是json,而是字符串,需要自己在做一个处理
+//        $res = json_decode($res,true);
+//        return json($res);
+//    }
+
+
+
 }
 
 

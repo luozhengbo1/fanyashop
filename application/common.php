@@ -345,6 +345,12 @@ function get_random($prefix = '')
     return $prefix . base_convert(time() * 1000, 10, 36) . "_" . base_convert(microtime(), 10, 36) . uniqid();
 }
 
+function getRandom($len=0)
+{
+    return  base_convert(time() * 1000, 10, 36) . "_" . base_convert(microtime(), 10, 36) . uniqid();
+
+}
+
 /**
  * 获取自定义配置
  * @param string|int $name 配置项的key或者value，传key返回value，传value返回key

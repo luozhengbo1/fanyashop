@@ -63,4 +63,7 @@ $up = new Uploader($fieldName, $config, $base64);
  */
 
 /* 返回数据 */
-return json_encode($up->getFileInfo());
+//var_dump($up->getFileInfo());die;
+$resData = $up->getFileInfo();
+$resData['url'] = 'http://'.$_SERVER['HTTP_HOST'].$resData['url'];
+return json_encode($resData);

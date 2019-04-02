@@ -445,10 +445,10 @@ function pub_save(json){
                 closeLoadShadow();
                 layer_msg(data.msg);
                 if(data.code ==200){
-                    if( data.redirect.indexOf('/index.php')<0 ){
-                        data.redirect = '/index.php'+data.redirect
-                    }
-                    console.log(data.redirect.indexOf('/index.php'))
+                    // if( data.redirect.indexOf('/index.php')<0 ){
+                    //     data.redirect = '/index.php'+data.redirect
+                    // }
+                        // console.log(data.redirect.indexOf('/index.php'))
                     console.log(data.redirect)
                     if(data.redirect && data.redirect!="undefined"){
                         // console.log(data.redirect)

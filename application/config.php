@@ -184,7 +184,32 @@ return [
         'prefix' => '',
         // 缓存有效期 0表示永久缓存
         'expire' => 0,
+        'file'=>[
+            'type'=>'file',
+            'path'=>CACHE_PATH,
+            'prefix'=>'',
+            'expire'=>30,
+        ],
+        //redis缓存
+        'redis'=>[
+            'type'=>'redis',
+            'host'=>'127.0.0.1',
+            'port'=>'6379',
+        ],
+        'memcache'=>[
+            'type'=>''
+        ],
     ],
+//    'cache'=>[
+//        //驱动方式
+//        'type'=>'',
+//        'host'=>'127.0.0.1',
+//        'port'=>'6379',
+//        'password'=>'',
+//        'prefix'=>'',
+//        //0 表示永久缓存
+//        'expire'=>0,
+//    ],
 
     // +----------------------------------------------------------------------
     // | 会话设置
@@ -241,5 +266,7 @@ return [
     'send'=>'lxuLCs3_eY7wsa2CTVUT45mqW8hECsK5gqns7LEHy6c',
     #确认收货提醒
     'sure'=>'vfjUQ3F8WVhlcbArgxX7rirho2yp9CtnI9UwDZv9UnI',
+    'x_appid'=>'wxeed4b793fa72a59c',
+    'x_secret'=>'2b785633b9b5934a7cce0971101ee5a0',
 
 ];

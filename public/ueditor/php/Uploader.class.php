@@ -92,7 +92,7 @@ class Uploader
         $this->fileSize = $file['size'];
         $this->fileType = $this->getFileExt();
         $this->fullName = $this->getFullName();
-        $this->filePath = $this->getFilePath();
+        $this->filePath =$this->getFilePath();
         $this->fileName = $this->getFileName();
         $dirname = dirname($this->filePath);
 

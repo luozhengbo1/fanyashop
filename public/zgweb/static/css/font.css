@@ -1,0 +1,64 @@
+﻿/* iconfont */
+
+@font-face {
+	font-family: 'iconfont';
+	src: url('../fonts/iconfont.eot');
+	src: url('../fonts/iconfont.eot') format('embedded-opentype'), url('../fonts/iconfont.woff') format('woff'), url('../fonts/iconfont.ttf') format('truetype'), url('../fonts/iconfont.svg#iconfont') format('svg');
+}
+
+.iconfont {
+	font-family: "iconfont" !important;
+	font-size: 16px;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-stroke-width: 0.2px;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* HelveticaNeue */
+@font-face {
+	font-family: 'HelveticaNeue';
+	src: url('../font/HelveticaNeue.gif');
+	src: url('../font/HelveticaNeue.gif?#iefix') format('embedded-opentype'), url('../font/HelveticaNeue.bmp') format('woff'), url('../font/HelveticaNeue.jpg') format('truetype'), url('../font/HelveticaNeue.png#HelveticaNeue') format('svg');
+}
+
+.HelveticaNeue {
+	font-family: 'HelveticaNeue';
+}
+
+/* ZurichBT-Light */
+
+@font-face {
+	font-family: 'ZurichBT-Light';
+	src: url('../font/ZurichBT-Light.gif');
+	src: url('../font/ZurichBT-Light.gif?#iefix') format('embedded-opentype'), url('../font/ZurichBT-Light.bmp') format('woff'), url('../font/ZurichBT-Light.jpg') format('truetype'), url('../font/ZurichBT-Light.png#ZurichBT-Light') format('svg');
+}
+
+.ZurichBT-Light {
+	font-family: 'ZurichBT-Light';
+}
+
+@font-face {
+	font-family: 'HelvLightNorma';
+	src: url('../font/HelvLightNorma.gif');
+	src: url('../font/HelvLightNorma.gif?#iefix') format('embedded-opentype'), url('../font/HelvLightNorma.bmp') format('woff'), url('../font/HelvLightNorma.jpg') format('truetype'), url('../font/HelvLightNorma.png#HelvLight-Normal') format('svg');
+}
+
+.HelvLightNorma {
+	font-family: 'HelvLightNorma';
+}
+
+@font-face {
+	font-family: 'Gautami';
+	src: url('../fonts/gautami.eot');
+	src: local('☺'), url('../fonts/gautami.woff') format('woff'), url('../fonts/gautami.ttf') format('truetype'), url('../fonts/gautami.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'CalibreLight';
+	src: url("../fonts/calibreweb-light.eot");
+	src: url("../fonts/calibreweb-light.eot") format("embedded-opentype"), url("../fonts/calibreweb-light.woff") format("woff");
+	font-style: normal;
+}
